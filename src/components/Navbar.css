@@ -1,0 +1,166 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  width: 100%;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  font-family: system-ui, sans-serif;
+}
+
+/* the blur lives on a pseudo-element behind the content, not on
+   .navbar itself — putting backdrop-filter directly on .navbar would
+   make it a "containing block" for the fixed-position mobile menu
+   below, which breaks its full-screen sizing */
+.navbar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(18, 22, 31, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* the navbar background spans the full viewport width, but the
+   actual content is centered with a max-width so it doesn't stretch
+   edge-to-edge on huge monitors */
+.navbar__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 32px;
+}
+
+.navbar__logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+}
+
+.navbar__logo-dot {
+  color: #e8a33d;
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.navbar__links a {
+  position: relative;
+  color: #c7cbd6;
+  text-decoration: none;
+  font-size: 0.95rem;
+  padding: 6px 0;
+  transition: color 0.2s ease;
+}
+
+/* animated underline that grows from the center on hover */
+.navbar__links a::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background: #e8a33d;
+  transition: width 0.25s ease, left 0.25s ease;
+}
+
+.navbar__links a:hover {
+  color: #ffffff;
+}
+
+.navbar__links a:hover::after {
+  width: 100%;
+  left: 0%;
+}
+
+/* the last link is styled as a standalone button, not a text link */
+.navbar__cta {
+  background: #e8a33d;
+  color: #12161f !important;
+  padding: 9px 20px !important;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.navbar__cta::after {
+  display: none; /* no underline animation on the button */
+}
+
+.navbar__cta:hover {
+  background: #f0b358;
+  color: #12161f !important;
+}
+
+/* hamburger button — three bars by default, hidden on desktop */
+.navbar__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  z-index: 60;
+}
+
+.navbar__toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+
+/* morph the three bars into an X when open */
+.navbar__toggle--open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar__toggle--open span:nth-child(2) {
+  opacity: 0;
+}
+.navbar__toggle--open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* mobile layout */
+@media (max-width: 700px) {
+  .navbar__toggle {
+    display: flex;
+  }
+
+  /* the links become a full-screen overlay menu, hidden until opened */
+  .navbar__links {
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    background: #12161f;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+  }
+
+  .navbar__links--open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .navbar__links a {
+    font-size: 1.4rem;
+  }
+}

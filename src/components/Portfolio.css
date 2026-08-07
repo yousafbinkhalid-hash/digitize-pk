@@ -1,0 +1,116 @@
+.portfolio {
+  background: #f5f4f0;
+  color: #12161f;
+  padding: 100px 24px;
+}
+
+.portfolio__header {
+  max-width: 1100px;
+  margin: 0 auto 44px;
+  text-align: center;
+}
+
+.portfolio__eyebrow {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  color: #0c6659;
+  margin-bottom: 14px;
+}
+
+.portfolio__title {
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+  margin: 0 0 28px;
+}
+
+.portfolio__filters {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.portfolio__filter {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.85rem;
+  background: transparent;
+  border: 1px solid #d3d0c4;
+  color: #565a63;
+  padding: 8px 18px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.portfolio__filter:hover {
+  border-color: #12161f;
+  color: #12161f;
+}
+
+.portfolio__filter--active {
+  background: #12161f;
+  border-color: #12161f;
+  color: #ffffff;
+}
+
+.portfolio__grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 860px) {
+  .portfolio__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .portfolio__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.project-card {
+  background: #ffffff;
+  border: 1px solid #e2e0d8;
+  border-radius: 12px;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 32px rgba(18, 22, 31, 0.1);
+}
+
+.project-card__thumb {
+  height: 140px;
+}
+
+.project-card__body {
+  padding: 22px 24px;
+}
+
+.project-card__path {
+  display: block;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  color: #8a8f7c;
+  margin-bottom: 10px;
+}
+
+.project-card__title {
+  font-size: 1.1rem;
+  margin: 0 0 8px;
+}
+
+.project-card__description {
+  font-size: 0.92rem;
+  line-height: 1.55;
+  color: #565a63;
+  margin: 0;
+}

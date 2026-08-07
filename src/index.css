@@ -1,0 +1,16 @@
+html, body, #root {
+  height: auto;
+  margin: 0;
+}
+
+body {
+  font-family: system-ui, sans-serif;
+}
+
+/* the outer wrapper in App.jsx — makes Navbar + Hero
+   together always fill at least the full viewport height */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
