@@ -8,6 +8,20 @@
   font-family: system-ui, sans-serif;
 }
 
+
+.navbar__logo {
+  display: flex;
+  align-items: center;
+}
+
+.navbar__logo-img {
+  height: 36px;       /* adjust to taste */
+  width: auto;
+  object-fit: contain;
+}
+
+
+
 /* the blur lives on a pseudo-element behind the content, not on
    .navbar itself — putting backdrop-filter directly on .navbar would
    make it a "containing block" for the fixed-position mobile menu

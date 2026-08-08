@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import './Hero.css'
+import { CodeIcon, TerminalIcon, PhoneIcon, GridIcon, BrowserIcon, CursorIcon } from './HeroIcons.jsx'
 
 const SLIDES = [
   {
@@ -7,18 +8,21 @@ const SLIDES = [
     eyebrow: 'software',
     title: 'We build software that ships.',
     subtitle: 'From first sketch to production, built on stacks your team can actually maintain.',
+    icons: [CodeIcon, TerminalIcon],
   },
   {
     theme: 'apps',
     eyebrow: 'apps',
     title: 'iOS and Android, done right.',
     subtitle: 'Native and cross-platform apps taken from prototype through App Store release.',
+    icons: [PhoneIcon, GridIcon],
   },
   {
     theme: 'websites',
     eyebrow: 'websites',
     title: 'Websites that convert visitors.',
     subtitle: 'Fast, maintainable sites designed to turn traffic into customers.',
+    icons: [BrowserIcon, CursorIcon],
   },
 ]
 
@@ -31,11 +35,11 @@ function Hero() {
     const timer = setInterval(() => {
       setActiveIndex((current) => (current + 1) % SLIDES.length)
     }, SLIDE_DURATION)
-
     return () => clearInterval(timer)
   }, [])
 
   const slide = SLIDES[activeIndex]
+  const [IconA, IconB] = slide.icons
 
   return (
     <section className={`hero hero--${slide.theme}`}>
@@ -46,7 +50,12 @@ function Hero() {
         <div className="hero__grid"></div>
       </div>
 
-      <div className="hero__content" key={activeIndex}>
+      <div className="hero__icons" aria-hidden="true" key={activeIndex}>
+        <IconA className="hero__icon hero__icon--1" />
+        <IconB className="hero__icon hero__icon--2" />
+      </div>
+
+      <div className="hero__content" key={`content-${activeIndex}`}>
         <span className="hero__eyebrow">{slide.eyebrow}</span>
         <h1 className="hero__title">{slide.title}</h1>
         <p className="hero__subtitle">{slide.subtitle}</p>

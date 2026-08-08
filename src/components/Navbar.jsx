@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './Navbar.css'
+import logo from '../assets/logo.png'
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -8,7 +9,7 @@ function Navbar() {
     <header className="navbar">
       <div className="navbar__inner">
         <div className="navbar__logo">
-          Digitize<span className="navbar__logo-dot">.pk</span>
+          <img src={logo} alt="Digitize.pk" className="navbar__logo-img" />
         </div>
 
         <nav className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
