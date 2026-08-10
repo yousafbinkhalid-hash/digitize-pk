@@ -373,7 +373,7 @@ function ServiceDetail({ service, index, isMobile }) {
         gap: isMobile ? 20 : 56,
         alignItems: "start",
         padding: isMobile ? "40px 0" : "64px 0",
-        borderTop: "1px solid rgba(255,255,255,0.07)",
+        borderTop: `2px solid ${service.color}40`,
         ...revealStyle,
       }}
     >
