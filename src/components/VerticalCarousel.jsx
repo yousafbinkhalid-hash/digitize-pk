@@ -19,8 +19,9 @@ import {
  *  - headline, supporting copy, CTA button
  *  - right: a photo with a caption
  *
- * Swap INDUSTRIES, COPY, and the image URL for your real content —
- * everything else (palette, type, motion) is ready to drop in.
+ * Design tokens (colors, type scale, spacing, photo sizing, grid ratios)
+ * are kept in lockstep with DigitizeServicesSection.jsx so the two
+ * alternating-layout sections read as one consistent system.
  */
 
 const INDUSTRIES = [
@@ -33,9 +34,13 @@ const INDUSTRIES = [
   { name: "Government & Public Sector", icon: ShieldCheck },
 ];
 
+// ---- Shared design tokens (keep identical in DigitizeServicesSection.jsx) ----
 const ACCENT = "#3D7BFF";
 const BG = "#070B16";
 const BG_SOFT = "#0C1224";
+const TEXT_MUTED = "#AEB6C4";
+const TEXT_CAPTION = "#7C8598";
+const FONT_STACK = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
 const TRANSITION_MS = 600;
 const MOBILE_BREAKPOINT = 640;
 
@@ -149,8 +154,7 @@ function IndustryStrip({ items, interval = 2400, isMobile }) {
               >
                 <span
                   style={{
-                    fontFamily:
-                      "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+                    fontFamily: FONT_STACK,
                     fontSize: isCenter ? centerFont : sideFont,
                     fontWeight: isCenter ? 700 : 500,
                     color: isCenter ? "#FFFFFF" : "#7C8598",
@@ -189,7 +193,7 @@ export default function DigitizeIndustrySection() {
       style={{
         background: BG,
         color: "#FFFFFF",
-        fontFamily: "'Inter', sans-serif",
+        fontFamily: FONT_STACK,
       }}
     >
       <style>{`
@@ -197,7 +201,7 @@ export default function DigitizeIndustrySection() {
         .dgz-section { padding: 88px 8vw; }
         .dgz-grid {
           display: grid;
-          grid-template-columns: 1.05fr 0.95fr;
+          grid-template-columns: 1.1fr 0.9fr;
           gap: 64px;
           align-items: center;
         }
@@ -225,7 +229,7 @@ export default function DigitizeIndustrySection() {
           <h2
             style={{
               marginTop: isMobile ? 32 : 48,
-              fontSize: "clamp(30px, 4vw, 48px)",
+              fontSize: "clamp(32px, 4vw, 48px)",
               lineHeight: 1.1,
               fontWeight: 500,
               letterSpacing: -0.5,
@@ -248,10 +252,10 @@ export default function DigitizeIndustrySection() {
             className="dgz-copy"
             style={{
               marginTop: 22,
-              maxWidth: 460,
+              maxWidth: 480,
               fontSize: 17,
               lineHeight: 1.65,
-              color: "#AEB6C4",
+              color: TEXT_MUTED,
             }}
           >
             digitize.pk builds for the sectors that move Pakistan's economy —
@@ -296,7 +300,7 @@ export default function DigitizeIndustrySection() {
               marginTop: 16,
               fontSize: 13.5,
               lineHeight: 1.6,
-              color: "#7C8598",
+              color: TEXT_CAPTION,
             }}
           >
             The digitize.pk team working with a retail client on their

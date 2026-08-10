@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import team from"../assets/team.jpg";
-
+import team from "../assets/team.jpg";
 
 /**
  * DigitizeServicesSection
@@ -10,7 +9,9 @@ import team from"../assets/team.jpg";
  * rows, rainbow palette) — hover a tile to see its full name slide out —
  * plus headline, copy, and a CTA.
  *
- * Swap SERVICES, the copy, and the image URL for your real content.
+ * Design tokens (colors, type scale, spacing, photo sizing, grid ratios)
+ * are kept in lockstep with DigitizeIndustrySection.jsx so the two
+ * alternating-layout sections read as one consistent system.
  */
 
 const SERVICES = [
@@ -42,7 +43,14 @@ const TILE_DESKTOP = 68;
 const TILE_MOBILE = 42;
 const GAP_DESKTOP = 10;
 const GAP_MOBILE = 6;
+
+// ---- Shared design tokens (keep identical in DigitizeIndustrySection.jsx) ----
+const ACCENT = "#3D7BFF";
 const BG = "#070B16";
+const BG_SOFT = "#0C1224";
+const TEXT_MUTED = "#AEB6C4";
+const TEXT_CAPTION = "#7C8598";
+const FONT_STACK = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
 const AUTO_INTERVAL_MS = 3000; // how often a random tile auto-reveals
 const AUTO_SHOW_MS = 1700; // how long that auto-reveal stays open
 const MOBILE_BREAKPOINT = 640;
@@ -128,11 +136,12 @@ function ServiceTile({ service, id, hoveredId, autoActive, tile, onHover, onLeav
       >
         <span
           style={{
+            fontFamily: FONT_STACK,
             fontWeight: 600,
             fontSize: tile < 60 ? 12.5 : 15,
             color: "#0B0F1A",
             whiteSpace: "nowrap",
-            }}
+          }}
         >
           {service.name}
         </span>
@@ -192,7 +201,7 @@ export default function DigitizeServicesSection() {
       style={{
         background: BG,
         color: "#FFFFFF",
-        fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
+        fontFamily: FONT_STACK,
       }}
     >
       <style>{`
@@ -200,19 +209,19 @@ export default function DigitizeServicesSection() {
         .dsvc-section { padding: 88px 8vw; }
         .dsvc-grid {
           display: grid;
-          grid-template-columns: 0.85fr 1.15fr;
+          grid-template-columns: 0.9fr 1.1fr;
           gap: 64px;
           align-items: center;
         }
-        .dsvc-photo { width: 100%; height: 460px; object-fit: cover; display: block; }
+        .dsvc-photo { width: 100%; height: 420px; object-fit: cover; display: block; }
         .dsvc-tiles { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
-        .dsvc-cta:hover { background: #3D7BFF; color: #fff !important; border-color: #3D7BFF !important; }
+        .dsvc-cta:hover { background: ${ACCENT}; color: #fff !important; border-color: ${ACCENT} !important; }
         @media (max-width: 900px) {
           .dsvc-grid { grid-template-columns: 1fr; gap: 40px; }
         }
         @media (max-width: 640px) {
           .dsvc-section { padding: 56px 6vw; }
-          .dsvc-photo { height: 260px; border-radius: 14px; }
+          .dsvc-photo { height: 240px; border-radius: 14px; }
           .dsvc-copy { max-width: 100% !important; }
         }
       `}</style>
@@ -220,7 +229,13 @@ export default function DigitizeServicesSection() {
       <div className="dsvc-grid">
         {/* Left: image + caption */}
         <div>
-          <div style={{ borderRadius: 18, overflow: "hidden" }}>
+          <div
+            style={{
+              borderRadius: 18,
+              overflow: "hidden",
+              background: BG_SOFT,
+            }}
+          >
             <img
               className="dsvc-photo"
               src={team}
@@ -232,7 +247,7 @@ export default function DigitizeServicesSection() {
               marginTop: 16,
               fontSize: 13.5,
               lineHeight: 1.6,
-              color: "#7C8598",
+              color: TEXT_CAPTION,
             }}
           >
             The digitize.pk team connecting with clients at a Karachi tech
@@ -275,8 +290,8 @@ export default function DigitizeServicesSection() {
 
           <h2
             style={{
-              marginTop: 48,
-              fontSize: "clamp(34px, 4vw, 48px)",
+              marginTop: isMobile ? 32 : 48,
+              fontSize: "clamp(32px, 4vw, 48px)",
               lineHeight: 1.1,
               fontWeight: 500,
               letterSpacing: -0.5,
@@ -288,7 +303,7 @@ export default function DigitizeServicesSection() {
                 fontFamily: "'Fraunces', serif",
                 fontStyle: "italic",
                 fontWeight: 500,
-                color: "#3D7BFF",
+                color: ACCENT,
               }}
             >
               services
@@ -299,10 +314,10 @@ export default function DigitizeServicesSection() {
             className="dsvc-copy"
             style={{
               marginTop: 22,
-              maxWidth: 520,
+              maxWidth: 480,
               fontSize: 17,
               lineHeight: 1.65,
-              color: "#AEB6C4",
+              color: TEXT_MUTED,
             }}
           >
             From strategy to digital product building and beyond, digitize.pk
@@ -318,9 +333,9 @@ export default function DigitizeServicesSection() {
               marginTop: 32,
               padding: "14px 28px",
               borderRadius: 999,
-              border: "1.5px solid #3D7BFF",
+              border: `1.5px solid ${ACCENT}`,
               background: "transparent",
-              color: "#3D7BFF",
+              color: ACCENT,
               fontSize: 15,
               fontWeight: 600,
               cursor: "pointer",
