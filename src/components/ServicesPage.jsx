@@ -424,7 +424,7 @@ function ServiceDetail({ service, index, isMobile }) {
             fontWeight: 500,
             letterSpacing: -0.4,
             marginBottom: 10,
-            color: "#fff",
+            color: service.color,
           }}
         >
           {service.name}
