@@ -35,12 +35,30 @@ const SERVICES = [
   ],
 ];
 
-const ROW_OFFSET = [0, 2, 1]; // tile-widths to shift each row, mimics the staggered look
-const TILE = 68;
-const GAP = 10;
+const ROW_OFFSET = [0, 2, 1]; // tile-widths to shift each row (desktop only — flattened on mobile)
+const TILE_DESKTOP = 68;
+const TILE_MOBILE = 42;
+const GAP_DESKTOP = 10;
+const GAP_MOBILE = 6;
 const BG = "#070B16";
 const AUTO_INTERVAL_MS = 3000; // how often a random tile auto-reveals
-const AUTO_SHOW_MS = 2500; // how long that auto-reveal stays open
+const AUTO_SHOW_MS = 1700; // how long that auto-reveal stays open
+const MOBILE_BREAKPOINT = 640;
+
+// Tracks whether we're under the mobile breakpoint, so tile size / spacing /
+// stagger can shrink instead of overflowing the screen width.
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth <= MOBILE_BREAKPOINT
+  );
+  useEffect(() => {
+    const onResize = () =>
+      setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+  return isMobile;
+}
 
 // Flatten SERVICES once, with a stable id per tile, so the parent can pick
 // a random one to auto-reveal every few seconds.
@@ -52,31 +70,33 @@ function flattenServices(rows) {
   return flat;
 }
 
-function ServiceTile({ service, autoActive }) {
+function ServiceTile({ service, autoActive, tile }) {
   const [hovered, setHovered] = useState(false);
   const open = hovered || autoActive;
   // rough width estimate so longer names get enough room; tweak the multiplier to taste
-  const expandedWidth = Math.max(60, service.name.length * 8.5 + 28);
+  const charWidth = tile < 60 ? 6.8 : 8.5;
+  const expandedWidth = Math.max(tile - 8, service.name.length * charWidth + 22);
 
   return (
     <div
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
+      onTouchStart={() => setHovered(true)}
       style={{ display: "flex", alignItems: "center", flexShrink: 0 }}
     >
       {/* original color tile — stays exactly as-is, code never changes */}
       <div
         style={{
-          width: TILE,
-          height: TILE,
+          width: tile,
+          height: tile,
           flexShrink: 0,
-          borderRadius: 2,
+          borderRadius: 10,
           background: service.color,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           fontWeight: 700,
-          fontSize: 18,
+          fontSize: tile < 60 ? 14 : 18,
           color: "#0B0F1A",
           boxShadow: open ? "0 8px 20px -6px rgba(0,0,0,0.5)" : "none",
           transition: "box-shadow 200ms ease",
@@ -88,15 +108,15 @@ function ServiceTile({ service, autoActive }) {
       {/* white flyout with the full name — pushes tiles to the right when it opens */}
       <div
         style={{
-          height: TILE,
+          height: tile,
           width: open ? expandedWidth : 0,
-          marginLeft: open ? 0 : 0,
+          marginLeft: open ? 4 : 0,
           flexShrink: 0,
-          borderRadius: 2,
+          borderRadius: 10,
           background: "#FFFFFF",
           display: "flex",
           alignItems: "center",
-          paddingLeft: open ? 14 : 0,
+          paddingLeft: open ? (tile < 60 ? 10 : 14) : 0,
           overflow: "hidden",
           whiteSpace: "nowrap",
           transition:
@@ -106,7 +126,7 @@ function ServiceTile({ service, autoActive }) {
         <span
           style={{
             fontWeight: 600,
-            fontSize: 15,
+            fontSize: tile < 60 ? 12.5 : 15,
             color: "#0B0F1A",
             whiteSpace: "nowrap",
           }}
@@ -121,6 +141,10 @@ function ServiceTile({ service, autoActive }) {
 export default function DigitizeServicesSection() {
   const flatServices = React.useMemo(() => flattenServices(SERVICES), []);
   const [autoId, setAutoId] = useState(null);
+  const isMobile = useIsMobile();
+
+  const tile = isMobile ? TILE_MOBILE : TILE_DESKTOP;
+  const gap = isMobile ? GAP_MOBILE : GAP_DESKTOP;
 
   useEffect(() => {
     let showTimeout;
@@ -142,24 +166,32 @@ export default function DigitizeServicesSection() {
 
   return (
     <section
+      className="dsvc-section"
       style={{
         background: BG,
         color: "#FFFFFF",
-        padding: "88px 8vw",
         fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
       }}
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,wght@1,500&display=swap');
+        .dsvc-section { padding: 88px 8vw; }
         .dsvc-grid {
           display: grid;
           grid-template-columns: 0.85fr 1.15fr;
           gap: 64px;
           align-items: center;
         }
+        .dsvc-photo { width: 100%; height: 460px; object-fit: cover; display: block; }
+        .dsvc-tiles { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; }
         .dsvc-cta:hover { background: #3D7BFF; color: #fff !important; border-color: #3D7BFF !important; }
         @media (max-width: 900px) {
           .dsvc-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+        @media (max-width: 640px) {
+          .dsvc-section { padding: 56px 6vw; }
+          .dsvc-photo { height: 260px; border-radius: 14px; }
+          .dsvc-copy { max-width: 100% !important; }
         }
       `}</style>
 
@@ -168,14 +200,9 @@ export default function DigitizeServicesSection() {
         <div>
           <div style={{ borderRadius: 18, overflow: "hidden" }}>
             <img
+              className="dsvc-photo"
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=80"
               alt="digitize.pk team at a client event"
-              style={{
-                width: "100%",
-                height: 460,
-                objectFit: "cover",
-                display: "block",
-              }}
             />
           </div>
           <p
@@ -193,21 +220,23 @@ export default function DigitizeServicesSection() {
 
         {/* Right: services grid + copy */}
         <div>
-          <div>
+          <div className="dsvc-tiles">
             {SERVICES.map((row, r) => (
               <div
                 key={r}
                 style={{
                   display: "flex",
-                  gap: GAP,
-                  marginLeft: ROW_OFFSET[r] * (TILE + GAP),
-                  marginBottom: GAP,
+                  gap,
+                  marginLeft: isMobile ? 0 : ROW_OFFSET[r] * (tile + gap),
+                  marginBottom: gap,
+                  width: "max-content",
                 }}
               >
                 {row.map((service, c) => (
                   <ServiceTile
                     key={service.code}
                     service={service}
+                    tile={tile}
                     autoActive={autoId === `${r}-${c}`}
                   />
                 ))}
@@ -238,6 +267,7 @@ export default function DigitizeServicesSection() {
           </h2>
 
           <p
+            className="dsvc-copy"
             style={{
               marginTop: 22,
               maxWidth: 520,
