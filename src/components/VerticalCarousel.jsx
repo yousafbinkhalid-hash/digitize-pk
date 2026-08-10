@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import team2 from"../assets/team2.jpg";
+import team2 from "../assets/team2.jpg";
 import {
   ShoppingCart,
   Landmark,
@@ -36,17 +36,36 @@ const INDUSTRIES = [
 const ACCENT = "#3D7BFF";
 const BG = "#070B16";
 const BG_SOFT = "#0C1224";
-
-const ROW_H = 44; // px, height of each name row / icon row
 const TRANSITION_MS = 600;
+const MOBILE_BREAKPOINT = 640;
 
-function IndustryStrip({ items, interval = 2400 }) {
+// Tracks whether we're under the mobile breakpoint, so the icon, row height,
+// and type scale can shrink instead of overflowing/wrapping on a phone.
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" && window.innerWidth <= MOBILE_BREAKPOINT
+  );
+  useEffect(() => {
+    const onResize = () =>
+      setIsMobile(window.innerWidth <= MOBILE_BREAKPOINT);
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
+  return isMobile;
+}
+
+function IndustryStrip({ items, interval = 2400, isMobile }) {
   const len = items.length;
   const [index, setIndex] = useState(0);
   const [transitionOn, setTransitionOn] = useState(true);
   const resetTimeout = useRef(null);
 
   const extended = [items[len - 1], ...items, items[0], items[1]]; // len+3
+
+  const iconSize = isMobile ? 46 : 64;
+  const rowH = isMobile ? 34 : 44;
+  const centerFont = isMobile ? 16 : 21;
+  const sideFont = isMobile ? 13.5 : 18;
 
   useEffect(() => {
     const id = setInterval(() => setIndex((p) => p + 1), interval);
@@ -70,12 +89,12 @@ function IndustryStrip({ items, interval = 2400 }) {
   const CenterIcon = items[((index % len) + len) % len].icon;
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+    <div style={{ display: "flex", alignItems: "center", gap: isMobile ? 14 : 20 }}>
       {/* Icon */}
       <div
         style={{
-          width: 64,
-          height: 64,
+          width: iconSize,
+          height: iconSize,
           flexShrink: 0,
           borderRadius: 14,
           background: `${ACCENT}1A`,
@@ -86,26 +105,27 @@ function IndustryStrip({ items, interval = 2400 }) {
         }}
       >
         <CenterIcon
-          size={30}
+          size={isMobile ? 22 : 30}
           color={ACCENT}
           strokeWidth={1.8}
           style={{ transition: "opacity 300ms ease" }}
         />
       </div>
 
-      {/* Name track */}
+      {/* Name track — flexes to fill available width instead of a fixed px value,
+          and truncates rather than wrapping on narrow screens */}
       <div
         style={{
           position: "relative",
-          height: ROW_H * 3,
+          height: rowH * 3,
           overflow: "hidden",
-          width: 320,
-          maxWidth: "60vw",
+          flex: 1,
+          minWidth: 0,
         }}
       >
         <div
           style={{
-            transform: `translateY(-${index * ROW_H}px)`,
+            transform: `translateY(-${index * rowH}px)`,
             transition: transitionOn
               ? `transform ${TRANSITION_MS}ms cubic-bezier(0.65,0,0.35,1)`
               : "none",
@@ -120,7 +140,7 @@ function IndustryStrip({ items, interval = 2400 }) {
               <div
                 key={i}
                 style={{
-                  height: ROW_H,
+                  height: rowH,
                   display: "flex",
                   alignItems: "center",
                   opacity,
@@ -131,10 +151,14 @@ function IndustryStrip({ items, interval = 2400 }) {
                   style={{
                     fontFamily:
                       "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-                    fontSize: isCenter ? 21 : 18,
+                    fontSize: isCenter ? centerFont : sideFont,
                     fontWeight: isCenter ? 700 : 500,
                     color: isCenter ? "#FFFFFF" : "#7C8598",
                     letterSpacing: -0.2,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    maxWidth: "100%",
                   }}
                 >
                   {item.name}
@@ -157,23 +181,27 @@ function IndustryStrip({ items, interval = 2400 }) {
 }
 
 export default function DigitizeIndustrySection() {
+  const isMobile = useIsMobile();
+
   return (
     <section
+      className="dgz-section"
       style={{
         background: BG,
         color: "#FFFFFF",
-        padding: "88px 8vw",
         fontFamily: "'Inter', sans-serif",
       }}
     >
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:ital,wght@1,500&display=swap');
+        .dgz-section { padding: 88px 8vw; }
         .dgz-grid {
           display: grid;
           grid-template-columns: 1.05fr 0.95fr;
           gap: 64px;
           align-items: center;
         }
+        .dgz-photo { width: 100%; height: 420px; object-fit: cover; display: block; }
         .dgz-cta:hover {
           background: ${ACCENT};
           color: #fff !important;
@@ -182,17 +210,22 @@ export default function DigitizeIndustrySection() {
           .dgz-grid { grid-template-columns: 1fr; gap: 40px; }
           .dgz-img { order: -1; }
         }
+        @media (max-width: 640px) {
+          .dgz-section { padding: 56px 6vw; }
+          .dgz-photo { height: 240px; border-radius: 14px; }
+          .dgz-copy { max-width: 100% !important; }
+        }
       `}</style>
 
       <div className="dgz-grid">
         {/* Left column */}
         <div>
-          <IndustryStrip items={INDUSTRIES} />
+          <IndustryStrip items={INDUSTRIES} isMobile={isMobile} />
 
           <h2
             style={{
-              marginTop: 48,
-              fontSize: "clamp(34px, 4vw, 48px)",
+              marginTop: isMobile ? 32 : 48,
+              fontSize: "clamp(30px, 4vw, 48px)",
               lineHeight: 1.1,
               fontWeight: 500,
               letterSpacing: -0.5,
@@ -212,6 +245,7 @@ export default function DigitizeIndustrySection() {
           </h2>
 
           <p
+            className="dgz-copy"
             style={{
               marginTop: 22,
               maxWidth: 460,
@@ -255,16 +289,7 @@ export default function DigitizeIndustrySection() {
               background: BG_SOFT,
             }}
           >
-            <img
-              src={team2}
-              alt="digitize.pk team collaborating with a client"
-              style={{
-                width: "100%",
-                height: 420,
-                objectFit: "cover",
-                display: "block",
-              }}
-            />
+            <img className="dgz-photo" src={team2} alt="digitize.pk team collaborating with a client" />
           </div>
           <p
             style={{
