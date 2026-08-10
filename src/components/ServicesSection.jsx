@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import team from"../assets/team.jpg";
+
 
 /**
  * DigitizeServicesSection
@@ -130,7 +132,7 @@ function ServiceTile({ service, id, hoveredId, autoActive, tile, onHover, onLeav
             fontSize: tile < 60 ? 12.5 : 15,
             color: "#0B0F1A",
             whiteSpace: "nowrap",
-          }}
+            }}
         >
           {service.name}
         </span>
@@ -221,7 +223,7 @@ export default function DigitizeServicesSection() {
           <div style={{ borderRadius: 18, overflow: "hidden" }}>
             <img
               className="dsvc-photo"
-              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&q=80"
+              src={team}
               alt="digitize.pk team at a client event"
             />
           </div>

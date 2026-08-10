@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import team2 from"../assets/team2.jpg";
 import {
   ShoppingCart,
   Landmark,
@@ -255,7 +256,7 @@ export default function DigitizeIndustrySection() {
             }}
           >
             <img
-              src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1000&q=80"
+              src={team2}
               alt="digitize.pk team collaborating with a client"
               style={{
                 width: "100%",

@@ -9,8 +9,10 @@ function Navbar() {
     <header className="navbar">
       <div className="navbar__inner">
         <div className="navbar__logo">
-          <img src={logo} alt="Digitize.pk" className="navbar__logo-img" />
-        </div>
+       <a href="/">
+        <img src={logo} alt="Digitize.pk" className="navbar__logo-img" />
+      </a>
+</div>
 
         <nav className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
           <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
