@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 /**
  * DigitizeServicesSection
@@ -70,18 +70,19 @@ function flattenServices(rows) {
   return flat;
 }
 
-function ServiceTile({ service, autoActive, tile }) {
-  const [hovered, setHovered] = useState(false);
-  const open = hovered || autoActive;
+function ServiceTile({ service, id, hoveredId, autoActive, tile, onHover, onLeave }) {
+  const isHoveredSelf = hoveredId === id;
+  const open = isHoveredSelf || autoActive;
   // rough width estimate so longer names get enough room; tweak the multiplier to taste
   const charWidth = tile < 60 ? 6.8 : 8.5;
   const expandedWidth = Math.max(tile - 8, service.name.length * charWidth + 22);
+  const flyoutHeight = Math.round(tile * 0.9);
 
   return (
     <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onTouchStart={() => setHovered(true)}
+      onMouseEnter={() => onHover(id)}
+      onMouseLeave={() => onLeave(id)}
+      onTouchStart={() => onHover(id)}
       style={{ display: "flex", alignItems: "center", flexShrink: 0 }}
     >
       {/* original color tile — stays exactly as-is, code never changes */}
@@ -90,7 +91,7 @@ function ServiceTile({ service, autoActive, tile }) {
           width: tile,
           height: tile,
           flexShrink: 0,
-          borderRadius: 10,
+          borderRadius: 3,
           background: service.color,
           display: "flex",
           alignItems: "center",
@@ -108,15 +109,15 @@ function ServiceTile({ service, autoActive, tile }) {
       {/* white flyout with the full name — pushes tiles to the right when it opens */}
       <div
         style={{
-          height: tile,
+          height: flyoutHeight,
           width: open ? expandedWidth : 0,
-          marginLeft: open ? 4 : 0,
+          marginLeft: open ? 0 : 0,
           flexShrink: 0,
-          borderRadius: 10,
+          borderRadius: 1,
           background: "#FFFFFF",
           display: "flex",
           alignItems: "center",
-          paddingLeft: open ? (tile < 60 ? 10 : 14) : 0,
+          paddingLeft: open ? (tile < 60 ? 8 : 12) : 0,
           overflow: "hidden",
           whiteSpace: "nowrap",
           transition:
@@ -141,13 +142,31 @@ function ServiceTile({ service, autoActive, tile }) {
 export default function DigitizeServicesSection() {
   const flatServices = React.useMemo(() => flattenServices(SERVICES), []);
   const [autoId, setAutoId] = useState(null);
+  const [hoveredId, setHoveredId] = useState(null);
   const isMobile = useIsMobile();
+  const intervalRef = useRef(null);
+  const showTimeoutRef = useRef(null);
 
   const tile = isMobile ? TILE_MOBILE : TILE_DESKTOP;
   const gap = isMobile ? GAP_MOBILE : GAP_DESKTOP;
 
+  const handleHover = (id) => {
+    setHoveredId(id);
+  };
+  const handleLeave = (id) => {
+    setHoveredId((current) => (current === id ? null : current));
+  };
+
+  // Auto-cycle a random tile open every few seconds — paused entirely while
+  // any tile is being hovered, and resumes once the mouse leaves.
   useEffect(() => {
-    let showTimeout;
+    if (hoveredId !== null) {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      if (showTimeoutRef.current) clearTimeout(showTimeoutRef.current);
+      setAutoId(null);
+      return undefined;
+    }
+
     const pickRandom = () => {
       setAutoId((current) => {
         // avoid repeating the same tile twice in a row
@@ -155,14 +174,15 @@ export default function DigitizeServicesSection() {
         const pick = choices[Math.floor(Math.random() * choices.length)];
         return pick.id;
       });
-      showTimeout = setTimeout(() => setAutoId(null), AUTO_SHOW_MS);
+      showTimeoutRef.current = setTimeout(() => setAutoId(null), AUTO_SHOW_MS);
     };
-    const interval = setInterval(pickRandom, AUTO_INTERVAL_MS);
+
+    intervalRef.current = setInterval(pickRandom, AUTO_INTERVAL_MS);
     return () => {
-      clearInterval(interval);
-      clearTimeout(showTimeout);
+      clearInterval(intervalRef.current);
+      clearTimeout(showTimeoutRef.current);
     };
-  }, [flatServices]);
+  }, [hoveredId, flatServices]);
 
   return (
     <section
@@ -232,14 +252,21 @@ export default function DigitizeServicesSection() {
                   width: "max-content",
                 }}
               >
-                {row.map((service, c) => (
-                  <ServiceTile
-                    key={service.code}
-                    service={service}
-                    tile={tile}
-                    autoActive={autoId === `${r}-${c}`}
-                  />
-                ))}
+                {row.map((service, c) => {
+                  const id = `${r}-${c}`;
+                  return (
+                    <ServiceTile
+                      key={service.code}
+                      service={service}
+                      id={id}
+                      tile={tile}
+                      hoveredId={hoveredId}
+                      autoActive={hoveredId === null && autoId === id}
+                      onHover={handleHover}
+                      onLeave={handleLeave}
+                    />
+                  );
+                })}
               </div>
             ))}
           </div>
