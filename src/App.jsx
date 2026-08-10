@@ -5,8 +5,8 @@ import DedicatedResources from './components/DedicatedResources.jsx'
 import Portfolio from './components/Portfolio.jsx'
 import VerticalCarousel from './components/VerticalCarousel.jsx'
 import ServicesSection from './components/ServicesSection.jsx'
+import WhatsAppButton from './components/WhatsAppButton.jsx'
 import Footer from './components/Footer.jsx'
-import ChatWidget from './components/ChatWidget.jsx'
 
 function App() {
   return (
@@ -18,12 +18,12 @@ function App() {
       <Portfolio />
       <VerticalCarousel />
       <ServicesSection />
-      <Footer />
-      <ChatWidget
-        backendUrl="https://your-backend.com/api/chat"
-        greeting="Hi! 👋 How can I help you today?"
-        company="digitize.pk"
+       <WhatsAppButton
+        phoneNumber="923214273257"
+        message="Hi! I'd like to know more about your services."
       />
+      <Footer />
+    
     </div>
   )
 }
