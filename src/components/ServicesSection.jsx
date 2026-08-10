@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import team from "../assets/team.jpg";
 
 /**
@@ -327,7 +328,8 @@ export default function DigitizeServicesSection() {
             continue the momentum after we're gone.
           </p>
 
-          <button
+          <Link
+            to="/services"
             className="dsvc-cta"
             style={{
               marginTop: 32,
@@ -339,11 +341,13 @@ export default function DigitizeServicesSection() {
               fontSize: 15,
               fontWeight: 600,
               cursor: "pointer",
+              textDecoration: "none",
+              display: "inline-block",
               transition: "background 200ms ease, color 200ms ease",
             }}
           >
             Explore our services
-          </button>
+          </Link>
         </div>
       </div>
     </section>
