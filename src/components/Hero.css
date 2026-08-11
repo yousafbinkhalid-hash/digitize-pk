@@ -100,18 +100,35 @@
 /* ---------- text ---------- */
 
 .hero__eyebrow {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.78rem;
   letter-spacing: 0.08em;
   color: var(--accent);
   border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-  padding: 6px 14px;
+  padding: 6px 14px 6px 12px;
   border-radius: 20px;
   margin-bottom: 24px;
   opacity: 0;
   animation: fadeUp 0.7s ease forwards;
   animation-delay: 0.05s;
+}
+
+.hero__eyebrow-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent);
+  animation: eyebrowPing 2.2s ease-out infinite;
+}
+
+@keyframes eyebrowPing {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent); }
+  70% { box-shadow: 0 0 0 7px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
 }
 
 .hero__title {
@@ -209,6 +226,9 @@
   opacity: 0;
   animation: fadeIn 1s ease forwards;
   animation-delay: 0.3s;
+  transform: perspective(1000px) rotateX(var(--tiltY, 0deg)) rotateY(var(--tiltX, 0deg));
+  transition: transform 0.2s ease-out;
+  will-change: transform;
 }
 
 .hero__visual--network {
@@ -242,6 +262,7 @@
 }
 
 .hero__net-node {
+  transform-box: fill-box;
   transform-origin: center;
   opacity: 0;
   animation: nodeIn 0.5s ease forwards, nodePulse 3.2s ease-in-out infinite;
@@ -258,12 +279,67 @@
 }
 
 .hero__net-hub {
+  transform-box: fill-box;
+  transform-origin: center;
   animation: hubPulse 2.6s ease-in-out infinite;
 }
 
 @keyframes hubPulse {
   0%, 100% { transform: scale(1); }
   50% { transform: scale(1.14); }
+}
+
+.hero__net-hub-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0.6;
+  animation: hubRing 2.6s ease-out infinite;
+}
+
+@keyframes hubRing {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
+.hero__net-pulse {
+  filter: drop-shadow(0 0 4px var(--accent));
+  opacity: 0;
+  animation: pulseFade 2.4s ease-in-out infinite;
+}
+
+@keyframes pulseFade {
+  0%, 6% { opacity: 0; }
+  12%, 78% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+.hero__net-orbit {
+  transform-origin: 330px 290px;
+  opacity: 0.5;
+}
+
+.hero__net-orbit--1 {
+  animation: orbitSpin 60s linear infinite;
+}
+
+.hero__net-orbit--2 {
+  animation: orbitSpin 42s linear infinite reverse;
+}
+
+@keyframes orbitSpin {
+  to { transform: rotate(360deg); }
+}
+
+.hero__net-node-halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0.5;
+  animation: haloPulse 3.2s ease-in-out infinite;
+}
+
+@keyframes haloPulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.6); opacity: 0; }
 }
 
 .hero__visual-tag {
@@ -287,11 +363,51 @@
 
 /* ---------- signature visual: slide 2 — design that performs ---------- */
 
-.hero__mockup {
+.hero__mockup-frame {
   position: relative;
-  width: 100%;
   max-width: 420px;
   margin: 0 auto;
+}
+
+.hero__mockup-glow {
+  position: absolute;
+  inset: -6px;
+  border-radius: 18px;
+  background: conic-gradient(
+    from 0deg,
+    var(--accent),
+    transparent 25%,
+    var(--node-a) 50%,
+    transparent 75%,
+    var(--accent)
+  );
+  filter: blur(18px);
+  opacity: 0.6;
+  animation: spinGlow 7s linear infinite;
+  z-index: 0;
+}
+
+@keyframes spinGlow {
+  to { transform: rotate(360deg); }
+}
+
+.hero__mockup-back {
+  position: absolute;
+  inset: 0;
+  transform: translate(16px, 18px) rotate(-3deg);
+  border-radius: 14px;
+  background: #161b28;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  z-index: 1;
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards;
+  animation-delay: 0.18s;
+}
+
+.hero__mockup {
+  position: relative;
+  z-index: 2;
+  width: 100%;
   border-radius: 14px;
   background: #12161f;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -304,16 +420,28 @@
 
 .hero__mockup-bar {
   display: flex;
+  align-items: center;
   gap: 6px;
   padding: 12px 14px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.hero__mockup-bar span {
+.hero__mockup-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.16);
+}
+
+.hero__mockup-url {
+  margin-left: 10px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.66rem;
+  color: #6b7180;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 5px;
+  padding: 3px 10px;
+  letter-spacing: 0.01em;
 }
 
 .hero__mockup-body {
@@ -340,6 +468,34 @@
   100% { opacity: 1; }
 }
 
+.hero__shimmer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.hero__shimmer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -40%;
+  width: 40%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    rgba(255, 255, 255, 0.09),
+    transparent
+  );
+  animation: shimmerSweep 2.6s ease-in-out infinite;
+}
+
+@keyframes shimmerSweep {
+  0% { left: -40%; }
+  100% { left: 120%; }
+}
+
 .hero__wire-line {
   height: 10px;
   border-radius: 4px;
@@ -355,6 +511,7 @@
 }
 
 .hero__ui-card {
+  position: relative;
   height: 100%;
   border-radius: 8px;
   background: rgba(255, 255, 255, 0.04);
@@ -370,6 +527,70 @@
   height: 12px;
   border-radius: 50%;
   background: var(--accent);
+  animation: dotBlink 2.4s ease-in-out infinite;
+}
+
+@keyframes dotBlink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+.hero__ui-trend {
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  top: 44px;
+  height: 46%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.hero__ui-trend-line {
+  stroke: #ffffff;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.75;
+  stroke-dasharray: 140;
+  stroke-dashoffset: 140;
+  animation: trendDraw 8s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+@keyframes trendDraw {
+  0%, 4% { stroke-dashoffset: 140; }
+  38%, 100% { stroke-dashoffset: 0; }
+}
+
+.hero__ui-trend-dot {
+  fill: #ffffff;
+  opacity: 0;
+  animation: fadeUp 0.5s ease forwards;
+  animation-delay: 5.2s;
+}
+
+.hero__ui-tooltip {
+  position: absolute;
+  top: 2px;
+  right: 26px;
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: #12161f;
+  background: #ffffff;
+  padding: 4px 9px;
+  border-radius: 6px;
+  opacity: 0;
+  transform: translateY(4px) scale(0.9);
+  animation: tooltipPop 8s ease infinite;
+  animation-delay: 4s;
+}
+
+@keyframes tooltipPop {
+  0%, 44% { opacity: 0; transform: translateY(4px) scale(0.9); }
+  50% { opacity: 1; transform: translateY(0) scale(1); }
+  62% { opacity: 1; transform: translateY(0) scale(1); }
+  72%, 100% { opacity: 0; transform: translateY(4px) scale(0.9); }
 }
 
 .hero__ui-bars {
@@ -377,12 +598,32 @@
   display: flex;
   align-items: flex-end;
   gap: 10px;
+  position: relative;
 }
 
-.hero__ui-bars span {
+.hero__ui-bar {
   flex: 1;
+  height: var(--h);
   border-radius: 4px 4px 0 0;
   background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 40%, transparent));
+  transform-origin: bottom;
+  animation: barGrow 3s ease-in-out infinite;
+}
+
+@keyframes barGrow {
+  0%, 100% { height: calc(var(--h) * 0.7); }
+  50% { height: var(--h); }
+}
+
+.hero__ui-bar--hit {
+  animation: barGrow 3s ease-in-out infinite, barFlash 8s ease infinite;
+}
+
+@keyframes barFlash {
+  0%, 43% { filter: brightness(1); transform: scaleY(1); }
+  48% { filter: brightness(1.7); transform: scaleY(1.08); }
+  58% { filter: brightness(1); transform: scaleY(1); }
+  100% { filter: brightness(1); transform: scaleY(1); }
 }
 
 .hero__ui-pill {
@@ -390,6 +631,7 @@
   height: 22px;
   border-radius: 20px;
   background: color-mix(in srgb, var(--node-a) 70%, transparent);
+  animation: pillFloat 4s ease-in-out infinite;
 }
 
 .hero__ui-pill--1 {
@@ -403,32 +645,148 @@
   top: 48px;
   right: 24px;
   background: color-mix(in srgb, var(--node-c) 70%, transparent);
+  animation-delay: 0.6s;
+}
+
+@keyframes pillFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* simulated cursor: moves in, "clicks" the highlighted bar, fades out */
+.hero__cursor {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 50% 50% 50% 4px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transform: translate(20%, 78%) rotate(-45deg);
+  animation: cursorMove 8s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+@keyframes cursorMove {
+  0%, 8% { opacity: 0; transform: translate(20%, 78%) rotate(-45deg); }
+  16% { opacity: 1; }
+  40%, 58% { opacity: 1; transform: translate(58%, 26%) rotate(-45deg); }
+  75% { opacity: 0; transform: translate(58%, 26%) rotate(-45deg); }
+  100% { opacity: 0; transform: translate(20%, 78%) rotate(-45deg); }
+}
+
+.hero__cursor-ring {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  opacity: 0;
+  animation: cursorClick 8s ease infinite;
+  animation-delay: 4s;
+}
+
+@keyframes cursorClick {
+  0%, 44% { opacity: 0; transform: scale(0.4); }
+  48% { opacity: 1; transform: scale(0.7); }
+  58% { opacity: 0; transform: scale(1.7); }
+  100% { opacity: 0; transform: scale(0.4); }
+}
+
+/* drifting particles around the mockup for ambient depth */
+.hero__particle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.7;
+  animation: particleDrift ease-in-out infinite;
+  pointer-events: none;
+}
+
+.hero__particle--1 {
+  width: 10px;
+  height: 10px;
+  top: 8%;
+  left: -4%;
+  background: var(--node-a);
+  animation-duration: 6s;
+}
+
+.hero__particle--2 {
+  width: 7px;
+  height: 7px;
+  bottom: 14%;
+  right: -3%;
+  background: var(--accent);
+  animation-duration: 7.5s;
+  animation-delay: 0.8s;
+}
+
+.hero__particle--3 {
+  width: 5px;
+  height: 5px;
+  top: 46%;
+  right: 4%;
+  background: var(--node-c);
+  animation-duration: 5.2s;
+  animation-delay: 1.6s;
+}
+
+@keyframes particleDrift {
+  0%, 100% { transform: translate(0, 0); opacity: 0.5; }
+  50% { transform: translate(10px, -16px); opacity: 0.9; }
 }
 
 .hero__stat-chip {
   position: absolute;
+  z-index: 2;
   display: flex;
-  flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  gap: 10px;
   padding: 10px 16px;
   border-radius: 10px;
   background: rgba(12, 15, 22, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(6px);
   opacity: 0;
-  animation: fadeUp 0.6s ease forwards;
+  animation: fadeUp 0.6s ease forwards, chipFloat 3.6s ease-in-out infinite;
+  animation-delay: 0s, 1.6s;
 }
 
 .hero__stat-chip--1 {
   top: 8%;
   left: -6%;
-  animation-delay: 1s;
+  animation-delay: 1s, 2.6s;
 }
 
 .hero__stat-chip--2 {
   bottom: 10%;
   right: -6%;
-  animation-delay: 1.3s;
+  animation-delay: 1.3s, 2.9s;
+}
+
+@keyframes chipFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.hero__stat-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  font-size: 0.6rem;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  flex-shrink: 0;
+}
+
+.hero__stat-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .hero__stat-num {
@@ -436,6 +794,7 @@
   font-weight: 700;
   font-size: 1.3rem;
   color: var(--accent);
+  line-height: 1;
 }
 
 .hero__stat-label {
@@ -600,18 +959,34 @@
 @media (prefers-reduced-motion: reduce) {
   .hero__blob,
   .hero__eyebrow,
+  .hero__eyebrow-dot,
   .hero__title-line,
   .hero__subtitle,
   .hero__ctas,
   .hero__visual,
   .hero__net-line,
   .hero__net-node,
+  .hero__net-node-halo,
+  .hero__net-orbit,
   .hero__net-hub,
+  .hero__net-hub-ring,
+  .hero__net-pulse,
   .hero__visual-tag,
   .hero__scroll-line,
   .hero__mockup,
+  .hero__mockup-glow,
   .hero__wireframe,
   .hero__uiblocks,
+  .hero__shimmer::before,
+  .hero__ui-bar,
+  .hero__ui-dot,
+  .hero__ui-pill,
+  .hero__ui-trend-line,
+  .hero__ui-trend-dot,
+  .hero__ui-tooltip,
+  .hero__cursor,
+  .hero__cursor-ring,
+  .hero__particle,
   .hero__stat-chip {
     animation: none !important;
     opacity: 1 !important;
@@ -621,5 +996,20 @@
 
   .hero__uiblocks {
     opacity: 0 !important;
+  }
+
+  .hero__net-pulse,
+  .hero__net-hub-ring,
+  .hero__net-node-halo,
+  .hero__cursor,
+  .hero__cursor-ring,
+  .hero__ui-tooltip,
+  .hero__ui-trend-dot {
+    opacity: 0 !important;
+  }
+
+  .hero__mockup-back {
+    animation: none !important;
+    opacity: 1 !important;
   }
 }

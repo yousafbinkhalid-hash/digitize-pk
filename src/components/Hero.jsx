@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './Hero.css'
 import { useCountUp } from '../useCountUp.js'
 
@@ -33,9 +33,29 @@ const SLIDES = [
 
 const SLIDE_DURATION = 7000
 
+const NET_PATHS = [
+  'M100,110 Q220,150 330,290',
+  'M470,90 Q380,180 330,290',
+  'M90,360 Q210,320 330,290',
+  'M120,470 Q230,390 330,290',
+  'M480,430 Q400,350 330,290',
+  'M300,60 Q315,170 330,290',
+]
+
+const NET_NODES = [
+  { cx: 100, cy: 110, r: 7, color: 'var(--node-a)', delay: '0.3s' },
+  { cx: 470, cy: 90, r: 6, color: 'var(--node-b)', delay: '0.55s' },
+  { cx: 90, cy: 360, r: 6, color: 'var(--node-b)', delay: '0.8s' },
+  { cx: 120, cy: 470, r: 8, color: 'var(--node-a)', delay: '1.05s' },
+  { cx: 480, cy: 430, r: 7, color: 'var(--node-c)', delay: '1.3s' },
+  { cx: 300, cy: 60, r: 5, color: 'var(--node-c)', delay: '1.55s' },
+]
+
 // ---------- Signature visual: slide 1 — talent network ----------
-// Outer nodes (mentored talent) draw connecting lines into a glowing
-// central hub, tagged with the mentor → skill → deploy pipeline.
+// Outer talent nodes (each with its own halo) draw connecting lines into a
+// glowing central hub, ringed by a slow rotating orbit. Signal pulses keep
+// traveling from every node into the hub on a loop — talent continuously
+// flowing in, not a static diagram.
 function TalentNetworkVisual() {
   return (
     <>
@@ -47,25 +67,51 @@ function TalentNetworkVisual() {
           </radialGradient>
         </defs>
 
+        {/* slow-rotating dashed orbit — pure ambient detail */}
+        <circle className="hero__net-orbit hero__net-orbit--1" cx="330" cy="290" r="230" fill="none" stroke="var(--accent)" strokeWidth="1" strokeDasharray="2 10" />
+        <circle className="hero__net-orbit hero__net-orbit--2" cx="330" cy="290" r="190" fill="none" stroke="var(--node-a)" strokeWidth="1" strokeDasharray="1 8" />
+
         <g className="hero__net-lines" fill="none" stroke="var(--accent)" strokeWidth="1.4">
-          <path className="hero__net-line" style={{ animationDelay: '0.3s' }} d="M100,110 Q220,150 330,290" />
-          <path className="hero__net-line" style={{ animationDelay: '0.55s' }} d="M470,90 Q380,180 330,290" />
-          <path className="hero__net-line" style={{ animationDelay: '0.8s' }} d="M90,360 Q210,320 330,290" />
-          <path className="hero__net-line" style={{ animationDelay: '1.05s' }} d="M120,470 Q230,390 330,290" />
-          <path className="hero__net-line" style={{ animationDelay: '1.3s' }} d="M480,430 Q400,350 330,290" />
-          <path className="hero__net-line" style={{ animationDelay: '1.55s' }} d="M300,60 Q315,170 330,290" />
+          {NET_PATHS.map((d, i) => (
+            <path key={d} className="hero__net-line" style={{ animationDelay: `${0.3 + i * 0.25}s` }} d={d} />
+          ))}
+        </g>
+
+        {/* traveling signal pulses — one per line, looping continuously */}
+        <g className="hero__net-pulses">
+          {NET_PATHS.map((d, i) => (
+            <circle
+              key={d}
+              className="hero__net-pulse"
+              r="4"
+              fill="#ffffff"
+              style={{ animationDelay: `${1.6 + i * 0.35}s` }}
+            >
+              <animateMotion dur="2.4s" begin={`${1.6 + i * 0.35}s`} repeatCount="indefinite" path={d} />
+            </circle>
+          ))}
         </g>
 
         <circle cx="330" cy="290" r="70" fill="url(#hubGlow)" />
         <circle className="hero__net-hub" cx="330" cy="290" r="13" fill="var(--accent)" />
+        <circle className="hero__net-hub-ring" cx="330" cy="290" r="13" fill="none" stroke="var(--accent)" strokeWidth="1.5" />
 
         <g className="hero__net-nodes">
-          <circle className="hero__net-node" style={{ animationDelay: '0.3s' }} cx="100" cy="110" r="7" fill="var(--node-a)" />
-          <circle className="hero__net-node" style={{ animationDelay: '0.55s' }} cx="470" cy="90" r="6" fill="var(--node-b)" />
-          <circle className="hero__net-node" style={{ animationDelay: '0.8s' }} cx="90" cy="360" r="6" fill="var(--node-b)" />
-          <circle className="hero__net-node" style={{ animationDelay: '1.05s' }} cx="120" cy="470" r="8" fill="var(--node-a)" />
-          <circle className="hero__net-node" style={{ animationDelay: '1.3s' }} cx="480" cy="430" r="7" fill="var(--node-c)" />
-          <circle className="hero__net-node" style={{ animationDelay: '1.55s' }} cx="300" cy="60" r="5" fill="var(--node-c)" />
+          {NET_NODES.map((n, i) => (
+            <g key={i}>
+              <circle
+                className="hero__net-node-halo"
+                style={{ animationDelay: n.delay }}
+                cx={n.cx}
+                cy={n.cy}
+                r={n.r + 6}
+                fill="none"
+                stroke={n.color}
+                strokeWidth="1.5"
+              />
+              <circle className="hero__net-node" style={{ animationDelay: n.delay }} cx={n.cx} cy={n.cy} r={n.r} fill={n.color} />
+            </g>
+          ))}
         </g>
       </svg>
 
@@ -77,53 +123,84 @@ function TalentNetworkVisual() {
 }
 
 // ---------- Signature visual: slide 2 — design that performs ----------
-// A UI mockup crossfades between a bare wireframe and a finished, colored
-// dashboard — the design process made literal — while two live count-up
-// stat chips prove the "business-driven results" half of the headline.
+// A UI mockup — sitting on a second stacked card for depth — crossfades
+// between a shimmering wireframe and a finished, colored dashboard on a
+// slow rotating glow ring. A simulated cursor moves in, "clicks" the top
+// bar, a result tooltip pops, and a trend line draws itself across the
+// chart — design turning into a measurable result, animated rather than
+// implied. Two live count-up stat chips carry the "business-driven" half.
 function DesignResultsVisual() {
   const [chipRefA, conversionValue] = useCountUp(42, 1600)
   const [chipRefB, engagementValue] = useCountUp(31, 1600)
 
   return (
     <>
-      <div className="hero__mockup">
-        <div className="hero__mockup-bar">
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <div className="hero__mockup-body">
-          <div className="hero__wireframe">
-            <div className="hero__wire-line" style={{ width: '46%' }}></div>
-            <div className="hero__wire-line" style={{ width: '72%' }}></div>
-            <div className="hero__wire-box"></div>
-            <div className="hero__wire-line" style={{ width: '58%' }}></div>
-            <div className="hero__wire-line" style={{ width: '38%' }}></div>
+      <div className="hero__mockup-frame">
+        <div className="hero__mockup-glow" aria-hidden="true"></div>
+        <div className="hero__mockup-back" aria-hidden="true"></div>
+
+        <div className="hero__mockup">
+          <div className="hero__mockup-bar">
+            <span className="hero__mockup-dot"></span>
+            <span className="hero__mockup-dot"></span>
+            <span className="hero__mockup-dot"></span>
+            <span className="hero__mockup-url">app.digitize.pk</span>
           </div>
-          <div className="hero__uiblocks">
-            <div className="hero__ui-card">
-              <span className="hero__ui-dot"></span>
-              <div className="hero__ui-bars">
-                <span style={{ height: '38%' }}></span>
-                <span style={{ height: '64%' }}></span>
-                <span style={{ height: '48%' }}></span>
-                <span style={{ height: '82%' }}></span>
-                <span style={{ height: '58%' }}></span>
-              </div>
+          <div className="hero__mockup-body">
+            <div className="hero__wireframe">
+              <div className="hero__shimmer" aria-hidden="true"></div>
+              <div className="hero__wire-line" style={{ width: '46%' }}></div>
+              <div className="hero__wire-line" style={{ width: '72%' }}></div>
+              <div className="hero__wire-box"></div>
+              <div className="hero__wire-line" style={{ width: '58%' }}></div>
+              <div className="hero__wire-line" style={{ width: '38%' }}></div>
             </div>
-            <div className="hero__ui-pill hero__ui-pill--1"></div>
-            <div className="hero__ui-pill hero__ui-pill--2"></div>
+            <div className="hero__uiblocks">
+              <div className="hero__ui-card">
+                <span className="hero__ui-dot"></span>
+
+                <svg className="hero__ui-trend" viewBox="0 0 100 30" preserveAspectRatio="none" aria-hidden="true">
+                  <polyline className="hero__ui-trend-line" points="6,22 28,13 50,18 72,6 94,15" fill="none" />
+                  <circle className="hero__ui-trend-dot" cx="72" cy="6" r="2.4" />
+                </svg>
+
+                <div className="hero__ui-bars">
+                  <span className="hero__ui-bar" style={{ '--h': '38%', animationDelay: '0.05s' }}></span>
+                  <span className="hero__ui-bar" style={{ '--h': '64%', animationDelay: '0.15s' }}></span>
+                  <span className="hero__ui-bar" style={{ '--h': '48%', animationDelay: '0.25s' }}></span>
+                  <span className="hero__ui-bar hero__ui-bar--hit" style={{ '--h': '82%', animationDelay: '0.35s' }}></span>
+                  <span className="hero__ui-bar" style={{ '--h': '58%', animationDelay: '0.45s' }}></span>
+                </div>
+
+                <span className="hero__ui-tooltip">+18% MoM</span>
+              </div>
+              <div className="hero__ui-pill hero__ui-pill--1"></div>
+              <div className="hero__ui-pill hero__ui-pill--2"></div>
+              <span className="hero__cursor" aria-hidden="true">
+                <span className="hero__cursor-ring"></span>
+              </span>
+            </div>
           </div>
         </div>
+
+        <span className="hero__particle hero__particle--1"></span>
+        <span className="hero__particle hero__particle--2"></span>
+        <span className="hero__particle hero__particle--3"></span>
       </div>
 
       <div className="hero__stat-chip hero__stat-chip--1" ref={chipRefA}>
-        <span className="hero__stat-num">+{conversionValue}%</span>
-        <span className="hero__stat-label">conversion lift</span>
+        <span className="hero__stat-icon">▲</span>
+        <span className="hero__stat-text">
+          <span className="hero__stat-num">+{conversionValue}%</span>
+          <span className="hero__stat-label">conversion lift</span>
+        </span>
       </div>
       <div className="hero__stat-chip hero__stat-chip--2" ref={chipRefB}>
-        <span className="hero__stat-num">+{engagementValue}%</span>
-        <span className="hero__stat-label">engagement</span>
+        <span className="hero__stat-icon">▲</span>
+        <span className="hero__stat-text">
+          <span className="hero__stat-num">+{engagementValue}%</span>
+          <span className="hero__stat-label">engagement</span>
+        </span>
       </div>
     </>
   )
@@ -136,6 +213,8 @@ const VISUALS = {
 
 function Hero() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const heroRef = useRef(null)
   const hasMultipleSlides = SLIDES.length > 1
 
   useEffect(() => {
@@ -146,11 +225,37 @@ function Hero() {
     return () => clearInterval(timer)
   }, [hasMultipleSlides])
 
+  // subtle mouse-parallax tilt on the visual — skipped entirely for anyone
+  // who prefers reduced motion
+  useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const el = heroRef.current
+    if (!el) return
+
+    function handleMove(e) {
+      const rect = el.getBoundingClientRect()
+      const x = (e.clientX - rect.left) / rect.width - 0.5
+      const y = (e.clientY - rect.top) / rect.height - 0.5
+      setTilt({ x: x * 10, y: y * -8 })
+    }
+
+    function handleLeave() {
+      setTilt({ x: 0, y: 0 })
+    }
+
+    el.addEventListener('mousemove', handleMove)
+    el.addEventListener('mouseleave', handleLeave)
+    return () => {
+      el.removeEventListener('mousemove', handleMove)
+      el.removeEventListener('mouseleave', handleLeave)
+    }
+  }, [])
+
   const slide = SLIDES[activeIndex]
   const Visual = VISUALS[slide.visual]
 
   return (
-    <section className="hero" id="home" data-theme={slide.theme}>
+    <section className="hero" id="home" data-theme={slide.theme} ref={heroRef}>
       <div className="hero__bg" aria-hidden="true">
         <span className="hero__blob hero__blob--1"></span>
         <span className="hero__blob hero__blob--2"></span>
@@ -159,7 +264,10 @@ function Hero() {
 
       <div className="hero__inner">
         <div className="hero__content" key={`content-${slide.id}`}>
-          <span className="hero__eyebrow">{slide.eyebrow}</span>
+          <span className="hero__eyebrow">
+            <span className="hero__eyebrow-dot"></span>
+            {slide.eyebrow}
+          </span>
 
           <h1 className="hero__title">
             {slide.titleLines.map((line, i) => (
@@ -181,7 +289,12 @@ function Hero() {
           </div>
         </div>
 
-        <div className={`hero__visual hero__visual--${slide.visual}`} aria-hidden="true" key={`visual-${slide.id}`}>
+        <div
+          className={`hero__visual hero__visual--${slide.visual}`}
+          aria-hidden="true"
+          key={`visual-${slide.id}`}
+          style={{ '--tiltX': `${tilt.x}deg`, '--tiltY': `${tilt.y}deg` }}
+        >
           <Visual />
         </div>
       </div>
