@@ -16,6 +16,13 @@
   --node-c: #d83d8f;
 }
 
+/* slide 2 ("design that performs") swaps the shared --accent to violet —
+   eyebrow, title accent line, CTA, dots, and scroll cue all follow since
+   they're all driven by var(--accent). */
+.hero[data-theme='design'] {
+  --accent: var(--node-b);
+}
+
 /* ---------- background ---------- */
 
 .hero__bg {
@@ -31,6 +38,7 @@
   filter: blur(100px);
   opacity: 0.35;
   will-change: transform;
+  transition: background 0.8s ease;
 }
 
 .hero__blob--1 {
@@ -47,7 +55,7 @@
   height: 460px;
   bottom: -180px;
   right: -120px;
-  background: var(--node-b);
+  background: var(--node-c);
   animation: drift2 28s ease-in-out infinite;
 }
 
@@ -197,12 +205,20 @@
 
 .hero__visual {
   position: relative;
-  aspect-ratio: 1 / 1;
-  max-width: 520px;
   margin: 0 auto;
   opacity: 0;
   animation: fadeIn 1s ease forwards;
   animation-delay: 0.3s;
+}
+
+.hero__visual--network {
+  aspect-ratio: 1 / 1;
+  max-width: 520px;
+}
+
+.hero__visual--design {
+  max-width: 440px;
+  width: 100%;
 }
 
 @keyframes fadeIn {
@@ -268,6 +284,166 @@
 .hero__visual-tag--1 { top: 12%; left: 6%; animation-delay: 0.9s; }
 .hero__visual-tag--2 { bottom: 12%; left: 10%; animation-delay: 1.6s; }
 .hero__visual-tag--3 { top: 46%; right: 2%; animation-delay: 2.2s; color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+
+/* ---------- signature visual: slide 2 — design that performs ---------- */
+
+.hero__mockup {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  border-radius: 14px;
+  background: #12161f;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  opacity: 0;
+  animation: fadeUp 0.7s ease forwards;
+  animation-delay: 0.3s;
+}
+
+.hero__mockup-bar {
+  display: flex;
+  gap: 6px;
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.hero__mockup-bar span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.hero__mockup-body {
+  position: relative;
+  height: 260px;
+  padding: 26px 24px;
+}
+
+.hero__wireframe,
+.hero__uiblocks {
+  position: absolute;
+  inset: 0;
+  padding: 26px 24px;
+  animation: crossFade 8s ease-in-out infinite;
+}
+
+.hero__uiblocks {
+  animation-delay: 4s;
+}
+
+@keyframes crossFade {
+  0%, 38% { opacity: 1; }
+  50%, 88% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.hero__wire-line {
+  height: 10px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 14px;
+}
+
+.hero__wire-box {
+  height: 70px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+  margin-bottom: 14px;
+}
+
+.hero__ui-card {
+  height: 100%;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.hero__ui-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.hero__ui-bars {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.hero__ui-bars span {
+  flex: 1;
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 40%, transparent));
+}
+
+.hero__ui-pill {
+  position: absolute;
+  height: 22px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--node-a) 70%, transparent);
+}
+
+.hero__ui-pill--1 {
+  width: 90px;
+  top: 18px;
+  right: 24px;
+}
+
+.hero__ui-pill--2 {
+  width: 60px;
+  top: 48px;
+  right: 24px;
+  background: color-mix(in srgb, var(--node-c) 70%, transparent);
+}
+
+.hero__stat-chip {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: rgba(12, 15, 22, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  animation: fadeUp 0.6s ease forwards;
+}
+
+.hero__stat-chip--1 {
+  top: 8%;
+  left: -6%;
+  animation-delay: 1s;
+}
+
+.hero__stat-chip--2 {
+  bottom: 10%;
+  right: -6%;
+  animation-delay: 1.3s;
+}
+
+.hero__stat-num {
+  font-family: 'Sora', system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.3rem;
+  color: var(--accent);
+}
+
+.hero__stat-label {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: #b9beca;
+}
 
 /* ---------- dot nav (for future slides) ---------- */
 
@@ -396,6 +572,26 @@
     padding: 3px 8px;
   }
 
+  .hero__mockup-body {
+    height: 210px;
+  }
+
+  .hero__stat-chip {
+    padding: 8px 12px;
+  }
+
+  .hero__stat-chip--1 {
+    left: 0;
+  }
+
+  .hero__stat-chip--2 {
+    right: 0;
+  }
+
+  .hero__stat-num {
+    font-size: 1.1rem;
+  }
+
   .hero__scroll {
     display: none;
   }
@@ -412,10 +608,18 @@
   .hero__net-node,
   .hero__net-hub,
   .hero__visual-tag,
-  .hero__scroll-line {
+  .hero__scroll-line,
+  .hero__mockup,
+  .hero__wireframe,
+  .hero__uiblocks,
+  .hero__stat-chip {
     animation: none !important;
     opacity: 1 !important;
     stroke-dashoffset: 0 !important;
     transform: none !important;
+  }
+
+  .hero__uiblocks {
+    opacity: 0 !important;
   }
 }
