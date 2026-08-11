@@ -8,6 +8,7 @@ import VerticalCarousel from './components/VerticalCarousel.jsx'
 import ServicesSection from './components/ServicesSection.jsx'
 import ServicesPage from './components/ServicesPage.jsx'
 import ContactPage from './components/ContactPage.jsx'
+import PartnersPage from './components/PartnersPage.jsx'
 import WhatsAppButton from './components/WhatsAppButton.jsx'
 import Footer from './components/Footer.jsx'
 
@@ -32,6 +33,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/partners" element={<PartnersPage />} />
       </Routes>
       <WhatsAppButton
         phoneNumber="923214273257"

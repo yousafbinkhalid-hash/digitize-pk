@@ -19,6 +19,7 @@ function Navbar() {
           <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
           <a href="#dedicated-resources" onClick={() => setMenuOpen(false)}>Dedicated Resources</a>
           <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+          <Link to="/partners" onClick={() => setMenuOpen(false)}>Partners</Link>
           <Link to="/contact" className="navbar__cta" onClick={() => setMenuOpen(false)}>Contact</Link>
         </nav>
 

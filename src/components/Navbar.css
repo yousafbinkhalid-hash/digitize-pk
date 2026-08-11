@@ -62,7 +62,7 @@
 .navbar__links {
   display: flex;
   align-items: center;
-  gap: 36px;
+  gap: 28px;
 }
 
 .navbar__links a {
@@ -148,7 +148,7 @@
 }
 
 /* mobile layout */
-@media (max-width: 700px) {
+@media (max-width: 860px) {
   .navbar__toggle {
     display: flex;
   }

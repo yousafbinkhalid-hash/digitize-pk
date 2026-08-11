@@ -5,6 +5,7 @@ const SITEMAP = [
   { label: 'work', href: '#work' },
   { label: 'dedicated-resources', href: '#dedicated-resources' },
   { label: 'services', href: '#services' },
+  { label: 'partners', to: '/partners' },
   { label: 'contact', to: '/contact' },
 ]
 
