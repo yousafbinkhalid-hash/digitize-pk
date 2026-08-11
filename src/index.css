@@ -1,7 +1,7 @@
 html {
   scroll-behavior: smooth;
-  /* keeps anchor targets (#services, #work, #dedicated-resources, #contact)
-     from landing underneath the fixed navbar */
+  /* keeps homepage anchor targets (#work, #dedicated-resources) from
+     landing underneath the fixed navbar */
   scroll-padding-top: 84px;
 }
 

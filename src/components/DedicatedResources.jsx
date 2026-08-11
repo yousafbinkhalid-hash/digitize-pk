@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import StatCard from './StatCard.jsx'
 import './DedicatedResources.css'
 
@@ -20,7 +21,7 @@ function DedicatedResources() {
             Add vetted engineers straight into your team on a monthly
             retainer — same repo, same standups, same bar for quality.
           </p>
-          <a href="#contact" className="dedicated__cta">Explore dedicated teams →</a>
+          <Link to="/contact" className="dedicated__cta">Explore dedicated teams →</Link>
         </div>
 
         <div className="dedicated__stats">

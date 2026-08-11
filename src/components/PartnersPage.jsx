@@ -44,7 +44,6 @@ function OrbitVisual() {
 
       {PARTNERS.map((p, i) => {
         const pos = ORBIT_POSITIONS[i]
-        const Icon = p.icon
         const Mark = p.mark
         return (
           <a
@@ -63,7 +62,7 @@ function OrbitVisual() {
             onBlur={() => setActiveId(null)}
           >
             <span className="partners-orbit__node-icon">
-              {Mark ? <Mark /> : <Icon size={18} aria-hidden="true" />}
+              <Mark />
             </span>
             <span className="partners-orbit__node-label">{p.name}</span>
           </a>
@@ -75,7 +74,6 @@ function OrbitVisual() {
 
 function PartnerCard({ partner, index }) {
   const [ref, visible] = useReveal(0.15)
-  const Icon = partner.icon
   const Mark = partner.mark
 
   return (
@@ -87,7 +85,7 @@ function PartnerCard({ partner, index }) {
     >
       <div className="partner-card__top">
         <span className="partner-card__icon">
-          {Mark ? <Mark /> : <Icon size={22} aria-hidden="true" />}
+          <Mark />
         </span>
         <span className="partner-card__category">{partner.category}</span>
       </div>

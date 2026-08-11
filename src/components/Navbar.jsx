@@ -10,15 +10,15 @@ function Navbar() {
     <header className="navbar">
       <div className="navbar__inner">
         <div className="navbar__logo">
-       <a href="/">
+       <Link to="/">
         <img src={logo} alt="Digitize.pk" className="navbar__logo-img" />
-      </a>
+      </Link>
 </div>
 
         <nav className={`navbar__links ${menuOpen ? 'navbar__links--open' : ''}`}>
-          <a href="#work" onClick={() => setMenuOpen(false)}>Work</a>
-          <a href="#dedicated-resources" onClick={() => setMenuOpen(false)}>Dedicated Resources</a>
-          <a href="#services" onClick={() => setMenuOpen(false)}>Services</a>
+          <Link to="/#work" onClick={() => setMenuOpen(false)}>Work</Link>
+          <Link to="/#dedicated-resources" onClick={() => setMenuOpen(false)}>Dedicated Resources</Link>
+          <Link to="/services" onClick={() => setMenuOpen(false)}>Services</Link>
           <Link to="/partners" onClick={() => setMenuOpen(false)}>Partners</Link>
           <Link to="/contact" className="navbar__cta" onClick={() => setMenuOpen(false)}>Contact</Link>
         </nav>

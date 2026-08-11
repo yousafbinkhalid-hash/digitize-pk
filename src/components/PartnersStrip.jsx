@@ -17,7 +17,6 @@ function PartnersStrip() {
 
         <div className={`partners-strip__row ${visible ? 'partners-strip__row--visible' : ''}`}>
           {PARTNERS.map((p, i) => {
-            const Icon = p.icon
             const Mark = p.mark
             return (
               <Link
@@ -27,7 +26,7 @@ function PartnersStrip() {
                 style={{ '--accent': p.color, transitionDelay: `${i * 0.06}s` }}
               >
                 <span className="partners-strip__icon">
-                  {Mark ? <Mark /> : <Icon size={20} aria-hidden="true" />}
+                  <Mark />
                 </span>
                 <span className="partners-strip__name">{p.name}</span>
               </Link>
