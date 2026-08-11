@@ -29,6 +29,17 @@ const SLIDES = [
     ctaSecondary: { label: 'Start a Project', href: '#contact' },
     visual: 'design',
   },
+  {
+    id: 'standout-relevant',
+    theme: 'standout',
+    eyebrow: 'always evolving',
+    titleLines: ['Stand Out.', 'Stay Relevant.'],
+    subtitle:
+      "Standing out gets you noticed once. Staying relevant keeps you chosen every time after. We build brands and products engineered to keep adapting — so the version of you people meet next year is even harder to ignore.",
+    ctaPrimary: { label: 'See Our Services', href: '#services' },
+    ctaSecondary: { label: 'Get In Touch', href: '#contact' },
+    visual: 'radar',
+  },
 ]
 
 const SLIDE_DURATION = 7000
@@ -50,6 +61,20 @@ const NET_NODES = [
   { cx: 480, cy: 430, r: 7, color: 'var(--node-c)', delay: '1.3s' },
   { cx: 300, cy: 60, r: 5, color: 'var(--node-c)', delay: '1.55s' },
 ]
+
+// dim, unremarkable "competitors" scattered around the radar
+const RADAR_BLIPS = [
+  { cx: 344, cy: 203, delay: '0.4s' },
+  { cx: 460, cy: 280, delay: '1.1s' },
+  { cx: 196, cy: 380, delay: '0.7s' },
+  { cx: 83, cy: 245, delay: '1.6s' },
+  { cx: 222, cy: 211, delay: '0.2s' },
+]
+
+// the one blip the sweep keeps finding — positioned at 150° clockwise from
+// north so its highlight animation lines up with the 6s sweep rotation
+// (150 / 360 * 6s = 2.5s into every lap)
+const RADAR_YOU = { cx: 355, cy: 410 }
 
 // ---------- Signature visual: slide 1 — talent network ----------
 // Outer talent nodes (each with its own halo) draw connecting lines into a
@@ -206,9 +231,62 @@ function DesignResultsVisual() {
   )
 }
 
+// ---------- Signature visual: slide 3 — stand out, stay relevant ----------
+// A radar keeps sweeping the field, continuously scanning — that's "staying
+// relevant." Every other blip is dim and identical; one blip, brighter and
+// larger than the rest, lights up each time the sweep passes over it —
+// that's "standing out." The metaphor runs the whole visual, not just the
+// headline.
+function RadarVisual() {
+  return (
+    <>
+      <svg viewBox="0 0 560 560" className="hero__radar" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="radarGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="var(--accent)" stopOpacity="0.18" />
+            <stop offset="100%" stopColor="var(--accent)" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        <circle cx="280" cy="280" r="220" fill="url(#radarGlow)" />
+
+        {/* range rings + crosshair */}
+        <g className="hero__radar-grid" fill="none" stroke="#ffffff" strokeOpacity="0.12">
+          <circle cx="280" cy="280" r="70" />
+          <circle cx="280" cy="280" r="140" />
+          <circle cx="280" cy="280" r="210" />
+          <line x1="280" y1="60" x2="280" y2="500" />
+          <line x1="60" y1="280" x2="500" y2="280" />
+        </g>
+
+        {/* rotating sweep beam */}
+        <g className="hero__radar-sweep">
+          <path d="M280,280 L204.8,73.2 A220,220 0 0,1 355.2,73.2 Z" fill="var(--accent)" />
+        </g>
+
+        {/* dim, forgettable blips */}
+        {RADAR_BLIPS.map((b, i) => (
+          <circle key={i} className="hero__radar-blip" style={{ animationDelay: b.delay }} cx={b.cx} cy={b.cy} r="4" fill="#6b7180" />
+        ))}
+
+        {/* the one that stands out */}
+        <circle className="hero__radar-you-halo" cx={RADAR_YOU.cx} cy={RADAR_YOU.cy} r="9" fill="none" stroke="var(--accent)" strokeWidth="1.5" />
+        <circle className="hero__radar-you" cx={RADAR_YOU.cx} cy={RADAR_YOU.cy} r="8" fill="var(--accent)" />
+
+        <circle className="hero__radar-center" cx="280" cy="280" r="5" fill="var(--accent)" />
+      </svg>
+
+      <span className="hero__visual-tag hero__visual-tag--1">distinct</span>
+      <span className="hero__visual-tag hero__visual-tag--2">always current</span>
+      <span className="hero__visual-tag hero__visual-tag--3">that&rsquo;s you</span>
+    </>
+  )
+}
+
 const VISUALS = {
   network: TalentNetworkVisual,
   design: DesignResultsVisual,
+  radar: RadarVisual,
 }
 
 function Hero() {

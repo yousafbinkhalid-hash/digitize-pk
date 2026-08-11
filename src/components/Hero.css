@@ -23,6 +23,11 @@
   --accent: var(--node-b);
 }
 
+/* slide 3 ("stand out, stay relevant") swaps it to magenta/pink. */
+.hero[data-theme='standout'] {
+  --accent: var(--node-c);
+}
+
 /* ---------- background ---------- */
 
 .hero__bg {
@@ -55,7 +60,7 @@
   height: 460px;
   bottom: -180px;
   right: -120px;
-  background: var(--node-c);
+  background: var(--node-a);
   animation: drift2 28s ease-in-out infinite;
 }
 
@@ -241,6 +246,11 @@
   width: 100%;
 }
 
+.hero__visual--radar {
+  aspect-ratio: 1 / 1;
+  max-width: 520px;
+}
+
 @keyframes fadeIn {
   to { opacity: 1; }
 }
@@ -360,6 +370,94 @@
 .hero__visual-tag--1 { top: 12%; left: 6%; animation-delay: 0.9s; }
 .hero__visual-tag--2 { bottom: 12%; left: 10%; animation-delay: 1.6s; }
 .hero__visual-tag--3 { top: 46%; right: 2%; animation-delay: 2.2s; color: var(--accent); border-color: color-mix(in srgb, var(--accent) 45%, transparent); }
+
+/* ---------- signature visual: slide 3 — stand out, stay relevant ---------- */
+
+.hero__radar {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hero__radar-grid circle,
+.hero__radar-grid line {
+  opacity: 0;
+  animation: fadeIn 0.8s ease forwards;
+}
+
+.hero__radar-sweep {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: radarSpin 6s linear infinite;
+}
+
+.hero__radar-sweep path {
+  filter: blur(6px);
+  opacity: 0.5;
+}
+
+@keyframes radarSpin {
+  to { transform: rotate(360deg); }
+}
+
+.hero__radar-blip {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: blipIn 0.5s ease forwards, blipPulse 2.8s ease-in-out infinite;
+}
+
+@keyframes blipIn {
+  from { opacity: 0; transform: scale(0.3); }
+  to { opacity: 0.7; transform: scale(1); }
+}
+
+@keyframes blipPulse {
+  0%, 100% { opacity: 0.5; }
+  50% { opacity: 0.85; }
+}
+
+.hero__radar-you-halo {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  animation: youHaloIn 0.5s ease forwards 0.6s, youHaloRing 6s ease-out infinite;
+}
+
+@keyframes youHaloIn {
+  to { opacity: 0.7; }
+}
+
+@keyframes youHaloRing {
+  0%, 38% { transform: scale(1); opacity: 0.7; }
+  46% { transform: scale(2.2); opacity: 0; }
+  100% { transform: scale(1); opacity: 0; }
+}
+
+.hero__radar-you {
+  transform-box: fill-box;
+  transform-origin: center;
+  opacity: 0;
+  filter: drop-shadow(0 0 0 transparent);
+  animation: youIn 0.5s ease forwards 0.6s, youHit 6s ease-in-out infinite;
+}
+
+@keyframes youIn {
+  to { opacity: 1; }
+}
+
+@keyframes youHit {
+  0%, 38% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); }
+  42% { transform: scale(1.5); filter: drop-shadow(0 0 10px var(--accent)); }
+  50% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); }
+  100% { transform: scale(1); filter: drop-shadow(0 0 0 transparent); }
+}
+
+.hero__radar-center {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: hubPulse 2.6s ease-in-out infinite;
+}
 
 /* ---------- signature visual: slide 2 — design that performs ---------- */
 
@@ -987,7 +1085,14 @@
   .hero__cursor,
   .hero__cursor-ring,
   .hero__particle,
-  .hero__stat-chip {
+  .hero__stat-chip,
+  .hero__radar-grid circle,
+  .hero__radar-grid line,
+  .hero__radar-sweep,
+  .hero__radar-blip,
+  .hero__radar-you,
+  .hero__radar-you-halo,
+  .hero__radar-center {
     animation: none !important;
     opacity: 1 !important;
     stroke-dashoffset: 0 !important;
@@ -995,6 +1100,14 @@
   }
 
   .hero__uiblocks {
+    opacity: 0 !important;
+  }
+
+  .hero__radar-sweep {
+    opacity: 0.15 !important;
+  }
+
+  .hero__radar-you-halo {
     opacity: 0 !important;
   }
 
