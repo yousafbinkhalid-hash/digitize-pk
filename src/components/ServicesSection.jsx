@@ -199,6 +199,7 @@ export default function DigitizeServicesSection() {
   return (
     <section
       className="dsvc-section"
+      id="services"
       style={{
         background: BG,
         color: "#FFFFFF",

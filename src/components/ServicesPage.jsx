@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
+import { Link } from "react-router-dom";
 import { Check, ArrowUpRight, ArrowRight } from "lucide-react";
 
 /**
@@ -775,8 +776,8 @@ export default function ServicesPage() {
           We'll point you to the right one — or tell you honestly if it's smaller
           than you think.
         </p>
-        <a
-          href="/contact"
+        <Link
+          to="/contact"
           className="svc-cta"
           style={{
             display: "inline-flex",
@@ -795,7 +796,7 @@ export default function ServicesPage() {
         >
           Get in touch
           <ArrowUpRight size={17} />
-        </a>
+        </Link>
       </section>
     </div>
   );

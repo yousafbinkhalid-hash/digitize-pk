@@ -1,10 +1,11 @@
+import { Link } from 'react-router-dom'
 import './Footer.css'
 
 const SITEMAP = [
-  { label: 'services', href: '#services' },
   { label: 'work', href: '#work' },
   { label: 'dedicated-resources', href: '#dedicated-resources' },
-  { label: 'contact', href: '#contact' },
+  { label: 'services', href: '#services' },
+  { label: 'contact', to: '/contact' },
 ]
 
 const SOCIALS = [
@@ -19,7 +20,7 @@ function scrollToTop() {
 
 function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer" id="contact">
       <div className="footer__inner">
         <div className="footer__brand">
           <div className="footer__logo">
@@ -36,7 +37,11 @@ function Footer() {
           <ul className="footer__list">
             {SITEMAP.map((item) => (
               <li key={item.label}>
-                <a href={item.href}>/{item.label}</a>
+                {item.to ? (
+                  <Link to={item.to}>/{item.label}</Link>
+                ) : (
+                  <a href={item.href}>/{item.label}</a>
+                )}
               </li>
             ))}
           </ul>

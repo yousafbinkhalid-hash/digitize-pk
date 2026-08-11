@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import './Hero.css'
 import { useCountUp } from '../useCountUp.js'
 
@@ -14,7 +15,7 @@ const SLIDES = [
     eyebrow: 'youth talent network',
     titleLines: ['Developing Skilled Youth.', 'Delivering Dedicated Talent.'],
     subtitle: 'Skill sharpened with purpose. Talent deployed where it counts.',
-    ctaPrimary: { label: 'Get Mentored', href: '#mentorship' },
+    ctaPrimary: { label: 'Get Mentored', href: '/contact' },
     ctaSecondary: { label: 'Get Deployed', href: '#dedicated-resources' },
     visual: 'network',
   },
@@ -26,7 +27,7 @@ const SLIDES = [
     subtitle:
       "Empathy gets you understood. Data gets you results. We design interfaces that start with the person on the other side of the screen — and end with a number your board can point to.",
     ctaPrimary: { label: 'View Our Work', href: '#work' },
-    ctaSecondary: { label: 'Start a Project', href: '#contact' },
+    ctaSecondary: { label: 'Start a Project', href: '/contact' },
     visual: 'design',
   },
   {
@@ -37,12 +38,29 @@ const SLIDES = [
     subtitle:
       "Standing out gets you noticed once. Staying relevant keeps you chosen every time after. We build brands and products engineered to keep adapting — so the version of you people meet next year is even harder to ignore.",
     ctaPrimary: { label: 'See Our Services', href: '#services' },
-    ctaSecondary: { label: 'Get In Touch', href: '#contact' },
+    ctaSecondary: { label: 'Get In Touch', href: '/contact' },
     visual: 'radar',
   },
 ]
 
 const SLIDE_DURATION = 7000
+
+// slide CTAs mix same-page anchors (#work) with real routes (/contact) —
+// route to the right element type for each so client-side navigation works.
+function HeroCtaLink({ href, className, children }) {
+  if (href.startsWith('/')) {
+    return (
+      <Link to={href} className={className}>
+        {children}
+      </Link>
+    )
+  }
+  return (
+    <a href={href} className={className}>
+      {children}
+    </a>
+  )
+}
 
 const NET_PATHS = [
   'M100,110 Q220,150 330,290',
@@ -358,12 +376,12 @@ function Hero() {
           <p className="hero__subtitle">{slide.subtitle}</p>
 
           <div className="hero__ctas">
-            <a href={slide.ctaPrimary.href} className="hero__cta hero__cta--primary">
+            <HeroCtaLink href={slide.ctaPrimary.href} className="hero__cta hero__cta--primary">
               {slide.ctaPrimary.label}
-            </a>
-            <a href={slide.ctaSecondary.href} className="hero__cta hero__cta--secondary">
+            </HeroCtaLink>
+            <HeroCtaLink href={slide.ctaSecondary.href} className="hero__cta hero__cta--secondary">
               {slide.ctaSecondary.label}
-            </a>
+            </HeroCtaLink>
           </div>
         </div>
 
