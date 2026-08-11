@@ -611,15 +611,7 @@ export default function ServicesPage() {
           background: ${ACCENT};
           color: #fff !important;
         }
-        .svc-glow {
-          animation: svcDrift 14s ease-in-out infinite;
-        }
-        @keyframes svcDrift {
-          0%, 100% { transform: translate(0, 0); }
-          50% { transform: translate(30px, -20px); }
-        }
         @media (prefers-reduced-motion: reduce) {
-          .svc-glow { animation: none; }
           .svc-hero-tile { transition: none; }
         }
         a:focus-visible, button:focus-visible {
@@ -629,22 +621,7 @@ export default function ServicesPage() {
       `}</style>
 
       {/* ---------------- HERO ---------------- */}
-      <section style={{ padding: isMobile ? "72px 6vw 48px" : "120px 8vw 80px", position: "relative", overflow: "hidden" }}>
-        <div
-          className="svc-glow"
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            top: -120,
-            right: -120,
-            width: 420,
-            height: 420,
-            borderRadius: "50%",
-            background: `radial-gradient(circle, ${ACCENT}22 0%, transparent 70%)`,
-            pointerEvents: "none",
-          }}
-        />
-
+      <section style={{ padding: isMobile ? "72px 6vw 48px" : "120px 8vw 80px", position: "relative" }}>
         <div
           style={{
             display: "grid",
