@@ -9,6 +9,7 @@ import ServicesSection from './components/ServicesSection.jsx'
 import ServicesPage from './components/ServicesPage.jsx'
 import ContactPage from './components/ContactPage.jsx'
 import PartnersPage from './components/PartnersPage.jsx'
+import PartnersStrip from './components/PartnersStrip.jsx'
 import WhatsAppButton from './components/WhatsAppButton.jsx'
 import Footer from './components/Footer.jsx'
 
@@ -16,6 +17,7 @@ function HomePage() {
   return (
     <>
       <Hero />
+      <PartnersStrip />
       <DedicatedResources />
       <Portfolio />
       <VerticalCarousel />
