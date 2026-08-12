@@ -284,7 +284,7 @@ function RadarVisual() {
 
         {/* dim, forgettable blips */}
         {RADAR_BLIPS.map((b, i) => (
-          <circle key={i} className="hero__radar-blip" style={{ animationDelay: b.delay }} cx={b.cx} cy={b.cy} r="4" fill="#6b7180" />
+          <circle key={i} className="hero__radar-blip" style={{ animationDelay: b.delay }} cx={b.cx} cy={b.cy} r="4" fill="#6E7A6F" />
         ))}
 
         {/* the one that stands out */}

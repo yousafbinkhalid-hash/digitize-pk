@@ -7,13 +7,13 @@
   justify-content: center;
   padding: 120px 32px 64px;
   overflow: hidden;
-  background: #0c0f16;
+  background: #0A120C;
   color: #ffffff;
 
-  --accent: #e8a33d;
-  --node-a: #4fd8a0;
-  --node-b: #6b4fd8;
-  --node-c: #d83d8f;
+  --accent: #3E7A5A;
+  --node-a: #6FA98A;
+  --node-b: #2F5940;
+  --node-c: #C2A46B;
 }
 
 /* slide 2 ("design that performs") swaps the shared --accent to violet —
@@ -161,7 +161,7 @@
 }
 
 .hero__subtitle {
-  color: #b9beca;
+  color: #B7C2B8;
   font-size: 1.1rem;
   line-height: 1.55;
   max-width: 46ch;
@@ -193,7 +193,7 @@
 
 .hero__cta--primary {
   background: var(--accent);
-  color: #12161f;
+  color: #10160F;
 }
 
 .hero__cta--primary:hover {
@@ -357,7 +357,7 @@
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.72rem;
   letter-spacing: 0.06em;
-  color: #b9beca;
+  color: #B7C2B8;
   background: rgba(12, 15, 22, 0.7);
   border: 1px solid rgba(255, 255, 255, 0.12);
   padding: 4px 10px;
@@ -494,7 +494,7 @@
   inset: 0;
   transform: translate(16px, 18px) rotate(-3deg);
   border-radius: 14px;
-  background: #161b28;
+  background: #131A13;
   border: 1px solid rgba(255, 255, 255, 0.08);
   z-index: 1;
   opacity: 0;
@@ -507,7 +507,7 @@
   z-index: 2;
   width: 100%;
   border-radius: 14px;
-  background: #12161f;
+  background: #10160F;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
   overflow: hidden;
@@ -535,7 +535,7 @@
   margin-left: 10px;
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.66rem;
-  color: #6b7180;
+  color: #6E7A6F;
   background: rgba(255, 255, 255, 0.04);
   border-radius: 5px;
   padding: 3px 10px;
@@ -674,7 +674,7 @@
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.66rem;
   font-weight: 600;
-  color: #12161f;
+  color: #10160F;
   background: #ffffff;
   padding: 4px 9px;
   border-radius: 6px;
@@ -899,7 +899,7 @@
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.68rem;
   letter-spacing: 0.04em;
-  color: #b9beca;
+  color: #B7C2B8;
 }
 
 /* ---------- dot nav (for future slides) ---------- */

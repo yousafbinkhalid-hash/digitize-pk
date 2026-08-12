@@ -1,6 +1,6 @@
 .portfolio {
-  background: #f5f4f0;
-  color: #12161f;
+  background: #F4F5F0;
+  color: #10160F;
   padding: 100px 24px;
 }
 
@@ -15,7 +15,7 @@
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.8rem;
   letter-spacing: 0.06em;
-  color: #0c6659;
+  color: #1F5C43;
   margin-bottom: 14px;
 }
 
@@ -35,8 +35,8 @@
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.85rem;
   background: transparent;
-  border: 1px solid #d3d0c4;
-  color: #565a63;
+  border: 1px solid #D6D9CE;
+  color: #56604F;
   padding: 8px 18px;
   border-radius: 20px;
   cursor: pointer;
@@ -44,13 +44,13 @@
 }
 
 .portfolio__filter:hover {
-  border-color: #12161f;
-  color: #12161f;
+  border-color: #10160F;
+  color: #10160F;
 }
 
 .portfolio__filter--active {
-  background: #12161f;
-  border-color: #12161f;
+  background: #10160F;
+  border-color: #10160F;
   color: #ffffff;
 }
 
@@ -76,7 +76,7 @@
 
 .project-card {
   background: #ffffff;
-  border: 1px solid #e2e0d8;
+  border: 1px solid #E3E5DC;
   border-radius: 12px;
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -111,6 +111,6 @@
 .project-card__description {
   font-size: 0.92rem;
   line-height: 1.55;
-  color: #565a63;
+  color: #56604F;
   margin: 0;
 }

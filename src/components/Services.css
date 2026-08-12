@@ -1,6 +1,6 @@
 .services {
-  background: #f5f4f0;
-  color: #12161f;
+  background: #F4F5F0;
+  color: #10160F;
   padding: 100px 24px;
 }
 
@@ -15,7 +15,7 @@
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.8rem;
   letter-spacing: 0.06em;
-  color: #0c6659;
+  color: #1F5C43;
   margin-bottom: 14px;
 }
 
@@ -46,7 +46,7 @@
 
 .service-card {
   background: #ffffff;
-  border: 1px solid #e2e0d8;
+  border: 1px solid #E3E5DC;
   border-radius: 12px;
   padding: 28px 24px;
   text-align: left;
@@ -56,7 +56,7 @@
 .service-card:hover {
   transform: translateY(-6px);
   box-shadow: 0 16px 32px rgba(18, 22, 31, 0.08);
-  border-color: #d3d0c4;
+  border-color: #D6D9CE;
 }
 
 .service-card__icon {
@@ -66,8 +66,8 @@
   width: 40px;
   height: 40px;
   border-radius: 10px;
-  background: #eef0ee;
-  color: #0c6659;
+  background: #E9EDE7;
+  color: #1F5C43;
   font-size: 1.1rem;
   margin-bottom: 18px;
 }
@@ -80,6 +80,6 @@
 .service-card__description {
   font-size: 0.92rem;
   line-height: 1.55;
-  color: #565a63;
+  color: #56604F;
   margin: 0;
 }

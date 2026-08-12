@@ -1,13 +1,13 @@
 .partners-page {
   position: relative;
-  background: #0c0f16;
+  background: #0A120C;
   color: #ffffff;
   padding: 140px 32px 0;
   overflow: hidden;
 
-  --accent: #e8a33d;
-  --node-a: #4fd8a0;
-  --node-b: #6b4fd8;
+  --accent: #3E7A5A;
+  --node-a: #6FA98A;
+  --node-b: #2F5940;
 }
 
 /* ---------- background ---------- */
@@ -133,7 +133,7 @@
 }
 
 .partners-page__subtitle {
-  color: #b9beca;
+  color: #B7C2B8;
   font-size: 1.05rem;
   line-height: 1.6;
   max-width: 56ch;
@@ -211,7 +211,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background: #12161f;
+  background: #10160F;
   border: 1px solid rgba(255, 255, 255, 0.14);
   box-shadow: 0 0 0 8px rgba(232, 163, 61, 0.06), 0 20px 40px -12px rgba(0, 0, 0, 0.6);
   z-index: 2;
@@ -255,7 +255,7 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: #12161f;
+  background: #10160F;
   border: 1.5px solid color-mix(in srgb, var(--node-color) 55%, transparent);
   box-shadow: 0 0 0 0 color-mix(in srgb, var(--node-color) 35%, transparent);
   transition: transform 0.2s ease, box-shadow 0.3s ease, border-color 0.2s ease;
@@ -277,7 +277,7 @@
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.68rem;
   letter-spacing: 0.02em;
-  color: #b9beca;
+  color: #B7C2B8;
   white-space: nowrap;
 }
 
@@ -304,7 +304,7 @@
   scroll-margin-top: 110px;
   padding: 26px 24px;
   border-radius: 14px;
-  background: #12161f;
+  background: #10160F;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-top: 2px solid color-mix(in srgb, var(--accent) 55%, transparent);
   opacity: 0;
@@ -346,7 +346,7 @@
   font-size: 0.66rem;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  color: #7c8598;
+  color: #7E8C81;
   text-align: right;
 }
 
@@ -358,7 +358,7 @@
 }
 
 .partner-card__blurb {
-  color: #b9beca;
+  color: #B7C2B8;
   font-size: 0.92rem;
   line-height: 1.6;
   margin: 0;
@@ -383,7 +383,7 @@
 }
 
 .partners-cta__text {
-  color: #b9beca;
+  color: #B7C2B8;
   line-height: 1.6;
   margin: 0 0 28px;
 }
@@ -395,7 +395,7 @@
   padding: 14px 26px;
   border-radius: 8px;
   background: var(--accent);
-  color: #12161f;
+  color: #10160F;
   font-weight: 700;
   font-size: 0.98rem;
   text-decoration: none;

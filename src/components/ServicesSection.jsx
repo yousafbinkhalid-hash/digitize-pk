@@ -41,11 +41,11 @@ const GAP_DESKTOP = 10;
 const GAP_MOBILE = 6;
 
 // ---- Shared design tokens (keep identical in DigitizeIndustrySection.jsx) ----
-const ACCENT = "#3D7BFF";
-const BG = "#070B16";
-const BG_SOFT = "#0C1224";
-const TEXT_MUTED = "#AEB6C4";
-const TEXT_CAPTION = "#7C8598";
+const ACCENT = "#3E7A5A";
+const BG = "#0A120C";
+const BG_SOFT = "#131A13";
+const TEXT_MUTED = "#B7C2B8";
+const TEXT_CAPTION = "#7E8C81";
 const FONT_STACK = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
 const AUTO_INTERVAL_MS = 3000; // how often a random tile auto-reveals
 const AUTO_SHOW_MS = 1700; // how long that auto-reveal stays open
@@ -104,7 +104,7 @@ function ServiceTile({ service, id, hoveredId, autoActive, tile, onHover, onLeav
           justifyContent: "center",
           fontWeight: 700,
           fontSize: tile < 60 ? 14 : 18,
-          color: "#0B0F1A",
+          color: "#0E140E",
           boxShadow: open ? "0 8px 20px -6px rgba(0,0,0,0.5)" : "none",
           transition: "box-shadow 200ms ease",
         }}
@@ -135,7 +135,7 @@ function ServiceTile({ service, id, hoveredId, autoActive, tile, onHover, onLeav
             fontFamily: FONT_STACK,
             fontWeight: 600,
             fontSize: tile < 60 ? 12.5 : 15,
-            color: "#0B0F1A",
+            color: "#0E140E",
             whiteSpace: "nowrap",
           }}
         >

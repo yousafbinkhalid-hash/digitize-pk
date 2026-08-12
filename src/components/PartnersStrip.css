@@ -1,7 +1,7 @@
 .partners-strip {
-  background: #0c0f16;
+  background: #0A120C;
   padding: 72px 32px 84px;
-  --accent-default: #e8a33d;
+  --accent-default: #3E7A5A;
 }
 
 .partners-strip__inner {
@@ -46,7 +46,7 @@
   gap: 10px;
   padding: 12px 20px;
   border-radius: 12px;
-  background: #12161f;
+  background: #10160F;
   border: 1px solid rgba(255, 255, 255, 0.08);
   text-decoration: none;
   color: #ffffff;

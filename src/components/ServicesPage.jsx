@@ -19,12 +19,12 @@ import { Check, ArrowUpRight, ArrowRight } from "lucide-react";
  */
 
 // ---- Shared design tokens ----
-const ACCENT = "#3D7BFF";
-const BG = "#070B16";
-const BG_SOFT = "#0C1224";
-const BG_ELEV = "#131A2E";
-const TEXT_MUTED = "#AEB6C4";
-const TEXT_CAPTION = "#7C8598";
+const ACCENT = "#3E7A5A";
+const BG = "#0A120C";
+const BG_SOFT = "#131A13";
+const BG_ELEV = "#1A2318";
+const TEXT_MUTED = "#B7C2B8";
+const TEXT_CAPTION = "#7E8C81";
 const FONT_STACK = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
 const MOBILE_BREAKPOINT = 640;
 const TABLET_BREAKPOINT = 900;
@@ -265,7 +265,7 @@ function HeroTileGrid({ services, isMobile, onJump, pulseCode }) {
             alignItems: "center",
             justifyContent: "center",
             gap: 2,
-            color: "#0B0F1A",
+            color: "#0E140E",
             fontFamily: FONT_STACK,
             position: "relative",
           }}

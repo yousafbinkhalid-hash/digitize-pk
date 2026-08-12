@@ -1,5 +1,5 @@
 .dedicated {
-  background: #12161f;
+  background: #10160F;
   color: #ffffff;
   padding: 110px 24px;
 }
@@ -25,7 +25,7 @@
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.8rem;
   letter-spacing: 0.06em;
-  color: #e8a33d;
+  color: #3E7A5A;
   margin-bottom: 16px;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .dedicated__subtitle {
-  color: #b9beca;
+  color: #B7C2B8;
   font-size: 1.02rem;
   line-height: 1.6;
   margin: 0 0 28px;
@@ -44,7 +44,7 @@
 
 .dedicated__cta {
   display: inline-block;
-  color: #e8a33d;
+  color: #3E7A5A;
   font-weight: 600;
   text-decoration: none;
   border-bottom: 1px solid transparent;
@@ -52,7 +52,7 @@
 }
 
 .dedicated__cta:hover {
-  border-color: #e8a33d;
+  border-color: #3E7A5A;
 }
 
 .dedicated__stats {
@@ -61,8 +61,8 @@
 }
 
 .stat-card {
-  background: #171c28;
-  border: 1px solid #262c3a;
+  background: #141C15;
+  border: 1px solid #212C22;
   border-radius: 12px;
   padding: 26px 28px;
 }
@@ -78,12 +78,12 @@
 
 .stat-card__suffix {
   font-size: 1.5rem;
-  color: #e8a33d;
+  color: #3E7A5A;
   margin-left: 2px;
 }
 
 .stat-card__label {
-  color: #8890a0;
+  color: #8A9689;
   font-size: 0.92rem;
   margin: 0;
 }

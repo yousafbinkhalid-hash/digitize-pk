@@ -1,14 +1,14 @@
 .contact-page {
   position: relative;
-  background: #0c0f16;
+  background: #0A120C;
   color: #ffffff;
   padding: 140px 32px 0;
   overflow: hidden;
 
-  --accent: #e8a33d;
-  --node-a: #4fd8a0;
-  --node-b: #6b4fd8;
-  --node-c: #d83d8f;
+  --accent: #3E7A5A;
+  --node-a: #6FA98A;
+  --node-b: #2F5940;
+  --node-c: #C2A46B;
 }
 
 /* ---------- background ---------- */
@@ -140,7 +140,7 @@
 }
 
 .contact-page__subtitle {
-  color: #b9beca;
+  color: #B7C2B8;
   font-size: 1.05rem;
   line-height: 1.6;
   max-width: 46ch;
@@ -170,7 +170,7 @@
   gap: 12px;
   padding: 16px;
   border-radius: 12px;
-  background: #12161f;
+  background: #10160F;
   border: 1px solid rgba(255, 255, 255, 0.08);
   text-decoration: none;
   color: inherit;
@@ -205,7 +205,7 @@
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.66rem;
   letter-spacing: 0.05em;
-  color: #7c8598;
+  color: #7E8C81;
   text-transform: uppercase;
 }
 
@@ -226,7 +226,7 @@
 
 .contact-window {
   border-radius: 16px;
-  background: #12161f;
+  background: #10160F;
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.55);
   overflow: hidden;
@@ -251,7 +251,7 @@
   margin-left: 10px;
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.72rem;
-  color: #6b7180;
+  color: #6E7A6F;
   background: rgba(255, 255, 255, 0.04);
   border-radius: 5px;
   padding: 3px 10px;
@@ -277,7 +277,7 @@
   border-radius: 8px;
   background: color-mix(in srgb, var(--node-c) 14%, transparent);
   border: 1px solid color-mix(in srgb, var(--node-c) 40%, transparent);
-  color: #f4c9dd;
+  color: #E8D9B0;
   font-size: 0.87rem;
   line-height: 1.5;
 }
@@ -313,7 +313,7 @@
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.74rem;
   letter-spacing: 0.04em;
-  color: #b9beca;
+  color: #B7C2B8;
   padding: 0;
 }
 
@@ -324,21 +324,21 @@
 }
 
 .contact-form__optional {
-  color: #6b7180;
+  color: #6E7A6F;
   font-weight: 400;
 }
 
 .contact-form__count {
   font-family: 'IBM Plex Mono', ui-monospace, monospace;
   font-size: 0.68rem;
-  color: #6b7180;
+  color: #6E7A6F;
 }
 
 .contact-form__input,
 .contact-form__textarea {
   width: 100%;
   box-sizing: border-box;
-  background: #0c0f16;
+  background: #0A120C;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   padding: 11px 14px;
@@ -380,8 +380,8 @@
 .contact-chip {
   font-family: system-ui, sans-serif;
   font-size: 0.85rem;
-  color: #b9beca;
-  background: #0c0f16;
+  color: #B7C2B8;
+  background: #0A120C;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 20px;
   padding: 8px 15px;
@@ -417,7 +417,7 @@
   border: none;
   border-radius: 8px;
   background: var(--accent);
-  color: #12161f;
+  color: #10160F;
   font-weight: 700;
   font-size: 0.98rem;
   cursor: pointer;
@@ -483,7 +483,7 @@
 }
 
 .contact-success__text {
-  color: #b9beca;
+  color: #B7C2B8;
   line-height: 1.6;
   margin: 0 0 24px;
   max-width: 40ch;
@@ -535,7 +535,7 @@
 }
 
 .contact-faq__item {
-  background: #12161f;
+  background: #10160F;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 10px;
   padding: 4px 20px;
@@ -558,7 +558,7 @@
 
 .contact-faq__chevron {
   flex-shrink: 0;
-  color: #7c8598;
+  color: #7E8C81;
   transition: transform 0.25s ease;
 }
 
@@ -568,7 +568,7 @@
 }
 
 .contact-faq__item p {
-  color: #b9beca;
+  color: #B7C2B8;
   line-height: 1.65;
   margin: 0 0 18px;
   font-size: 0.95rem;

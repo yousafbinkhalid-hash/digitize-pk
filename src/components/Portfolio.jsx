@@ -4,12 +4,12 @@ import './Portfolio.css'
 const CATEGORIES = ['All', 'Web', 'Apps', 'Platforms']
 
 const PROJECTS = [
-  { id: 'ledgerly', title: 'Ledgerly', category: 'Web', path: '~/work/ledgerly', description: 'Finance dashboard rebuilt for a 40k-user fintech.', gradient: 'linear-gradient(135deg, #e8a33d, #d83d8f)' },
-  { id: 'porthaus', title: 'Porthaus', category: 'Platforms', path: '~/work/porthaus', description: 'Logistics platform connecting shippers and carriers.', gradient: 'linear-gradient(135deg, #0c6659, #3dd8c9)' },
-  { id: 'fieldnote', title: 'Fieldnote', category: 'Apps', path: '~/work/fieldnote', description: 'Offline-first mobile app for field data collection.', gradient: 'linear-gradient(135deg, #3d7ce8, #6b4fd8)' },
-  { id: 'cursive', title: 'Cursive', category: 'Web', path: '~/work/cursive', description: 'Marketing site and booking flow on a headless CMS.', gradient: 'linear-gradient(135deg, #d83d8f, #e8c93d)' },
-  { id: 'haystack', title: 'Haystack', category: 'Platforms', path: '~/work/haystack', description: 'Internal ticket-triage tool that halved response time.', gradient: 'linear-gradient(135deg, #6b4fd8, #3d7ce8)' },
-  { id: 'reeflow', title: 'Reeflow', category: 'Apps', path: '~/work/reeflow', description: 'iOS and Android companion app for a hardware launch.', gradient: 'linear-gradient(135deg, #e8c93d, #0c6659)' },
+  { id: 'ledgerly', title: 'Ledgerly', category: 'Web', path: '~/work/ledgerly', description: 'Finance dashboard rebuilt for a 40k-user fintech.', gradient: 'linear-gradient(135deg, #3E7A5A, #C2A46B)' },
+  { id: 'porthaus', title: 'Porthaus', category: 'Platforms', path: '~/work/porthaus', description: 'Logistics platform connecting shippers and carriers.', gradient: 'linear-gradient(135deg, #1F5C43, #8FBFA0)' },
+  { id: 'fieldnote', title: 'Fieldnote', category: 'Apps', path: '~/work/fieldnote', description: 'Offline-first mobile app for field data collection.', gradient: 'linear-gradient(135deg, #4B8567, #2F5940)' },
+  { id: 'cursive', title: 'Cursive', category: 'Web', path: '~/work/cursive', description: 'Marketing site and booking flow on a headless CMS.', gradient: 'linear-gradient(135deg, #C2A46B, #D8C48A)' },
+  { id: 'haystack', title: 'Haystack', category: 'Platforms', path: '~/work/haystack', description: 'Internal ticket-triage tool that halved response time.', gradient: 'linear-gradient(135deg, #2F5940, #4B8567)' },
+  { id: 'reeflow', title: 'Reeflow', category: 'Apps', path: '~/work/reeflow', description: 'iOS and Android companion app for a hardware launch.', gradient: 'linear-gradient(135deg, #D8C48A, #1F5C43)' },
 ]
 
 function Portfolio() {

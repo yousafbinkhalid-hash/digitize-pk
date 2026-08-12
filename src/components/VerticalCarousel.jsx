@@ -35,11 +35,11 @@ const INDUSTRIES = [
 ];
 
 // ---- Shared design tokens (keep identical in DigitizeServicesSection.jsx) ----
-const ACCENT = "#3D7BFF";
-const BG = "#070B16";
-const BG_SOFT = "#0C1224";
-const TEXT_MUTED = "#AEB6C4";
-const TEXT_CAPTION = "#7C8598";
+const ACCENT = "#3E7A5A";
+const BG = "#0A120C";
+const BG_SOFT = "#131A13";
+const TEXT_MUTED = "#B7C2B8";
+const TEXT_CAPTION = "#7E8C81";
 const FONT_STACK = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
 const TRANSITION_MS = 600;
 const MOBILE_BREAKPOINT = 640;
@@ -157,7 +157,7 @@ function IndustryStrip({ items, interval = 2400, isMobile }) {
                     fontFamily: FONT_STACK,
                     fontSize: isCenter ? centerFont : sideFont,
                     fontWeight: isCenter ? 700 : 500,
-                    color: isCenter ? "#FFFFFF" : "#7C8598",
+                    color: isCenter ? "#FFFFFF" : "#7E8C81",
                     letterSpacing: -0.2,
                     whiteSpace: "nowrap",
                     overflow: "hidden",
