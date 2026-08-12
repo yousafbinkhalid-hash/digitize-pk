@@ -16,26 +16,21 @@ import team from "../assets/team.jpg";
  */
 
 const SERVICES = [
-  // row 1
+  // row 1 — Strategy & Planning, Design & Experience
   [
     { code: "St", name: "Strategy", color: "#D946A8" },
-    { code: "Da", name: "Data & Analytics", color: "#EC4E7A" },
-    { code: "Ai", name: "AI & Automation", color: "#F0522F" },
-    { code: "Cl", name: "Cloud", color: "#F2892B" },
-  ],
-  // row 2 (indented)
-  [
     { code: "Ux", name: "UX / UI Design", color: "#EAC22D" },
+  ],
+  // row 2 — Engineering (indented)
+  [
     { code: "Sw", name: "Software Dev", color: "#CFE22D" },
     { code: "Mo", name: "Mobile Apps", color: "#7AD62B" },
-    { code: "Qa", name: "QA & Testing", color: "#2FCB6E" },
+    { code: "Cl", name: "Cloud", color: "#F2892B" },
   ],
-  // row 3 (less indented)
+  // row 3 — Growth & Commerce (less indented)
   [
-    { code: "Ec", name: "E-commerce", color: "#22C79E" },
     { code: "Mk", name: "Digital Marketing", color: "#20C4C4" },
-    { code: "Se", name: "Security", color: "#4FA9E8" },
-    { code: "Su", name: "Support", color: "#6E7EF0" },
+    { code: "Ec", name: "E-commerce", color: "#22C79E" },
   ],
 ];
 

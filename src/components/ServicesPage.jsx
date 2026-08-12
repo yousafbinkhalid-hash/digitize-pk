@@ -29,12 +29,13 @@ const FONT_STACK = "'Inter', -apple-system, BlinkMacSystemFont, sans-serif";
 const MOBILE_BREAKPOINT = 640;
 const TABLET_BREAKPOINT = 900;
 
-// ---- Service data: same 12 services + colors as the homepage tile grid,
-// extended with the detail content this page needs. ----
+// ---- Service data: 6 services across 4 stacks, same source powers the
+// homepage tile grid and this page's detail sections. ----
 const SERVICES = [
   {
     code: "St",
     name: "Strategy",
+    stack: "Strategy & Planning",
     color: "#D946A8",
     tagline: "Know where you're going before you spend on how to get there.",
     description:
@@ -49,56 +50,9 @@ const SERVICES = [
     engagement: "Fixed-scope engagement",
   },
   {
-    code: "Da",
-    name: "Data & Analytics",
-    color: "#EC4E7A",
-    tagline: "Turn scattered numbers into decisions people trust.",
-    description:
-      "From messy spreadsheets to a single source of truth: we consolidate your data, build dashboards your team will actually open, and set up the pipelines that keep them accurate.",
-    deliverables: [
-      "Data warehouse setup",
-      "ETL pipeline build",
-      "Executive dashboards",
-      "Reporting automation",
-    ],
-    bestFor: "Teams making decisions on outdated or conflicting reports",
-    engagement: "Fixed-scope or ongoing retainer",
-  },
-  {
-    code: "Ai",
-    name: "AI & Automation",
-    color: "#F0522F",
-    tagline: "Take the repetitive work off your team's plate.",
-    description:
-      "We identify the manual processes actually worth automating, then build the models and workflows to do it — with clear guardrails so your team stays in control of the outcome.",
-    deliverables: [
-      "Automation opportunity audit",
-      "Custom model or workflow build",
-      "Integration with existing tools",
-      "Monitoring & handover training",
-    ],
-    bestFor: "Operations teams buried in repetitive manual tasks",
-    engagement: "Fixed-scope engagement",
-  },
-  {
-    code: "Cl",
-    name: "Cloud",
-    color: "#F2892B",
-    tagline: "Infrastructure that scales when you need it, and costs less when you don't.",
-    description:
-      "We migrate, architect, or right-size your cloud setup so it holds up under real traffic without you overpaying for capacity you're not using.",
-    deliverables: [
-      "Cloud architecture design",
-      "Migration & zero-downtime cutover",
-      "Cost optimization review",
-      "Monitoring & alerting setup",
-    ],
-    bestFor: "Teams outgrowing on-prem servers or a single provider",
-    engagement: "Fixed-scope or ongoing retainer",
-  },
-  {
     code: "Ux",
     name: "UX / UI Design",
+    stack: "Design & Experience",
     color: "#EAC22D",
     tagline: "Design that makes the right action the obvious one.",
     description:
@@ -115,6 +69,7 @@ const SERVICES = [
   {
     code: "Sw",
     name: "Software Dev",
+    stack: "Engineering",
     color: "#CFE22D",
     tagline: "Custom-built, for the workflow you actually have.",
     description:
@@ -131,6 +86,7 @@ const SERVICES = [
   {
     code: "Mo",
     name: "Mobile Apps",
+    stack: "Engineering",
     color: "#7AD62B",
     tagline: "One codebase, every device that matters.",
     description:
@@ -145,40 +101,26 @@ const SERVICES = [
     engagement: "Dedicated team or fixed-scope",
   },
   {
-    code: "Qa",
-    name: "QA & Testing",
-    color: "#2FCB6E",
-    tagline: "Find the bug before your users do.",
+    code: "Cl",
+    name: "Cloud",
+    stack: "Engineering",
+    color: "#F2892B",
+    tagline: "Infrastructure that scales when you need it, and costs less when you don't.",
     description:
-      "Manual and automated testing across the flows that matter most — so releases go out with confidence instead of crossed fingers.",
+      "We migrate, architect, or right-size your cloud setup so it holds up under real traffic without you overpaying for capacity you're not using.",
     deliverables: [
-      "Test plan & coverage audit",
-      "Automated regression suite",
-      "Manual exploratory testing",
-      "Bug tracking & release sign-off",
+      "Cloud architecture design",
+      "Migration & zero-downtime cutover",
+      "Cost optimization review",
+      "Monitoring & alerting setup",
     ],
-    bestFor: "Teams shipping fast and getting bitten by regressions",
-    engagement: "Ongoing retainer",
-  },
-  {
-    code: "Ec",
-    name: "E-commerce",
-    color: "#22C79E",
-    tagline: "From browsing to checkout, without the drop-off.",
-    description:
-      "We build and tune storefronts on the platform that fits your catalog and volume, then optimize the checkout flow where most revenue quietly leaks away.",
-    deliverables: [
-      "Storefront build or migration",
-      "Payment & shipping integration",
-      "Checkout conversion optimization",
-      "Inventory & catalog setup",
-    ],
-    bestFor: "Retailers launching online or switching platforms",
-    engagement: "Fixed-scope engagement",
+    bestFor: "Teams outgrowing on-prem servers or a single provider",
+    engagement: "Fixed-scope or ongoing retainer",
   },
   {
     code: "Mk",
     name: "Digital Marketing",
+    stack: "Growth & Commerce",
     color: "#20C4C4",
     tagline: "Spend that's traceable to actual results.",
     description:
@@ -193,36 +135,21 @@ const SERVICES = [
     engagement: "Ongoing retainer",
   },
   {
-    code: "Se",
-    name: "Security",
-    color: "#4FA9E8",
-    tagline: "Close the gaps before someone else finds them.",
+    code: "Ec",
+    name: "E-commerce",
+    stack: "Growth & Commerce",
+    color: "#22C79E",
+    tagline: "From browsing to checkout, without the drop-off.",
     description:
-      "Penetration testing, audits, and hardening across your applications and infrastructure — with a prioritized fix list, not just a scary report.",
+      "We build and tune storefronts on the platform that fits your catalog and volume, then optimize the checkout flow where most revenue quietly leaks away.",
     deliverables: [
-      "Penetration testing",
-      "Infrastructure security audit",
-      "Compliance readiness review",
-      "Remediation support",
+      "Storefront build or migration",
+      "Payment & shipping integration",
+      "Checkout conversion optimization",
+      "Inventory & catalog setup",
     ],
-    bestFor: "Businesses handling sensitive customer or payment data",
-    engagement: "Fixed-scope or ongoing retainer",
-  },
-  {
-    code: "Su",
-    name: "Support",
-    color: "#6E7EF0",
-    tagline: "Someone to call when it's not working.",
-    description:
-      "Ongoing maintenance, monitoring, and a real response-time commitment, so a broken checkout page or a down server doesn't sit in a queue overnight.",
-    deliverables: [
-      "24/7 monitoring & alerting",
-      "Guaranteed response-time SLA",
-      "Regular maintenance & patching",
-      "Direct line to your dev team",
-    ],
-    bestFor: "Live products that can't afford unplanned downtime",
-    engagement: "Ongoing retainer",
+    bestFor: "Retailers launching online or switching platforms",
+    engagement: "Fixed-scope engagement",
   },
 ];
 
@@ -418,6 +345,20 @@ function ServiceDetail({ service, index, isMobile }) {
             {service.engagement}
           </span>
         </div>
+
+        <span
+          style={{
+            display: "block",
+            fontSize: 12,
+            fontWeight: 600,
+            letterSpacing: 0.4,
+            textTransform: "uppercase",
+            color: TEXT_CAPTION,
+            marginBottom: 6,
+          }}
+        >
+          {service.stack}
+        </span>
 
         <h3
           style={{
@@ -644,7 +585,7 @@ export default function ServicesPage() {
                 marginBottom: 18,
               }}
             >
-              12 disciplines, one team
+              4 stacks, one team
             </span>
 
             <h1
@@ -656,7 +597,7 @@ export default function ServicesPage() {
                 marginBottom: 22,
               }}
             >
-              Every capability,{" "}
+              Strategy to launch,{" "}
               <span
                 style={{
                   fontFamily: "'Fraunces', serif",
@@ -670,8 +611,8 @@ export default function ServicesPage() {
             </h1>
 
             <p style={{ fontSize: 17.5, lineHeight: 1.7, color: TEXT_MUTED, maxWidth: 480, marginBottom: 32 }}>
-              From strategy through to long-term support, digitize.pk covers the full
-              stack a digital transformation needs — so you're not stitching together
+              From roadmap to design, build, and growth, digitize.pk covers the full
+              stack a digital product needs — so you're not stitching together
               five different vendors who've never spoken to each other.
             </p>
 
